@@ -22,7 +22,7 @@
         android:layout_marginEnd="80dp"
         android:text=""
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/layout_hueco_10"
+        app:layout_constraintBottom_toTopOf="@id/tablero_jugador"
         app:layout_constraintEnd_toStartOf="@id/ptsfila2" />
 
     <TextView
@@ -32,7 +32,7 @@
         android:layout_marginStart="80dp"
         android:text=""
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/layout_hueco_12"
+        app:layout_constraintBottom_toTopOf="@id/tablero_jugador"
         app:layout_constraintStart_toEndOf="@id/ptsfila2"
         tools:layout_editor_absoluteX="136dp"
         tools:layout_editor_absoluteY="672dp" />
@@ -44,7 +44,7 @@
         android:text=""
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/layout_hueco_11"
+        app:layout_constraintBottom_toTopOf="@id/tablero_jugador"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteX="136dp"
@@ -94,218 +94,242 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/emptydice" />
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_hueco_10"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/tablero_jugador"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        app:layout_constraintBottom_toTopOf="@id/layout_hueco_13"
+        android:layout_marginHorizontal="55dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/lamb"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
-            android:id="@+id/hueco_10"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <LinearLayout
+            android:id="@+id/fila_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/fila_4"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/hueco" />
+            app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-            android:id="@+id/dice_10"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_hueco_10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageButton
+                    android:id="@+id/hueco_10"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/hueco" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_hueco_11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/hueco_11"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/hueco" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_hueco_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/hueco_12"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/hueco" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fila_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/fila_5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/emptydice" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toStartOf="parent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_hueco_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:layout_constraintStart_toStartOf="parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_hueco_11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/layout_hueco_14"
-        app:layout_constraintStart_toEndOf="@id/layout_hueco_13">
+                <ImageButton
+                    android:id="@+id/hueco_13"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/hueco" />
 
-        <ImageButton
-            android:id="@+id/hueco_11"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_hueco_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/hueco_14"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/hueco" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_hueco_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/hueco_15"
+                    android:layout_width="86dp"
+                    android:layout_height="69dp"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/hueco" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fila_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/lamb"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/hueco" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toStartOf="parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_hueco_12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/layout_hueco_15"
-        app:layout_constraintStart_toEndOf="@id/layout_hueco_11">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_hueco_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
-            android:id="@+id/hueco_12"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/hueco" />
+                <ImageButton
+                    android:id="@+id/hueco_16"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/hueco" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_hueco_13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/layout_hueco_16"
-        app:layout_constraintStart_toStartOf="parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_hueco_17"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1">
 
-        <ImageButton
-            android:id="@+id/hueco_13"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/hueco" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageButton
+                    android:id="@+id/hueco_17"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/hueco" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_hueco_14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/layout_hueco_17"
-        app:layout_constraintStart_toEndOf="@id/layout_hueco_13">
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageButton
-            android:id="@+id/hueco_14"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/hueco" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_hueco_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
+                <ImageButton
+                    android:id="@+id/hueco_18"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/hueco" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_hueco_15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/layout_hueco_18"
-        app:layout_constraintStart_toEndOf="@id/layout_hueco_14">
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/hueco_15"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/hueco" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_hueco_16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/roller1"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ImageButton
-            android:id="@+id/hueco_16"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:layout_marginBottom="15dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/hueco" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_hueco_17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/roller1"
-        app:layout_constraintStart_toEndOf="@id/layout_hueco_16">
-
-        <ImageButton
-            android:id="@+id/hueco_17"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:layout_marginBottom="15dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/hueco" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_hueco_18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/roller1"
-        app:layout_constraintStart_toEndOf="@id/layout_hueco_17">
-
-        <ImageButton
-            android:id="@+id/hueco_18"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:layout_marginBottom="15dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/hueco" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
