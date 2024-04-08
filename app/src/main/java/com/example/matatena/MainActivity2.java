@@ -42,6 +42,8 @@ public class MainActivity2 extends AppCompatActivity {
     int tirada;
     boolean rolleado = false;
 
+    int[] puntosColumna;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +63,9 @@ public class MainActivity2 extends AppCompatActivity {
         hueco_3_2 = findViewById(R.id.hueco_3_2);
 
         puntosJugador = findViewById(R.id.puntos_Jugador);
-        puntos_Jugador_columna_0 = findViewById(R.id.ptsfila1);
-        puntos_Jugador_columna_1 = findViewById(R.id.ptsfila2);
-        puntos_Jugador_columna_2 = findViewById(R.id.ptsfila3);
+        puntos_Jugador_columna_0 = findViewById(R.id.puntos_Jugador_Columna_0);
+        puntos_Jugador_columna_1 = findViewById(R.id.puntos_Jugador_Columna_1);
+        puntos_Jugador_columna_2 = findViewById(R.id.puntos_Jugador_Columna_2);
 
         dice_3_0 = findViewById(R.id.dice_3_0);
         dice_3_1 = findViewById(R.id.dice_3_1);
@@ -76,68 +78,78 @@ public class MainActivity2 extends AppCompatActivity {
         dice_5_2 = findViewById(R.id.dice_5_2);
 
         tablero = new int[6][3];
+        puntosColumna = new int[3];
 
         roller1.setOnClickListener(v -> {
-            rolldice();
+            rollDice();
         });
 
         hueco_3_0.setOnClickListener(v -> {
             if (rolleado) {
                 tablero[3][0] = tirada;
                 dice_3_0.setImageResource(getDiceDrawable(tirada));
+                updateCounter();
             }
         });
         hueco_3_1.setOnClickListener(v -> {
             if (rolleado) {
                 tablero[3][1] = tirada;
                 dice_3_1.setImageResource(getDiceDrawable(tirada));
+                updateCounter();
             }
         });
         hueco_3_2.setOnClickListener(v -> {
             if (rolleado) {
                 tablero[3][2] = tirada;
                 dice_3_2.setImageResource(getDiceDrawable(tirada));
+                updateCounter();
             }
         });
         hueco_4_0.setOnClickListener(v -> {
             if (rolleado) {
                 tablero[4][0] = tirada;
                 dice_4_0.setImageResource(getDiceDrawable(tirada));
+                updateCounter();
             }
         });
         hueco_4_1.setOnClickListener(v -> {
             if (rolleado) {
                 tablero[4][1] = tirada;
                 dice_4_1.setImageResource(getDiceDrawable(tirada));
+                updateCounter();
             }
         });
         hueco_4_2.setOnClickListener(v -> {
             if (rolleado) {
                 tablero[4][2] = tirada;
                 dice_4_2.setImageResource(getDiceDrawable(tirada));
+                updateCounter();
             }
         });
         hueco_5_0.setOnClickListener(v -> {
             if (rolleado) {
                 tablero[5][0] = tirada;
                 dice_5_0.setImageResource(getDiceDrawable(tirada));
+                updateCounter();
             }
         });
         hueco_5_1.setOnClickListener(v -> {
             if (rolleado) {
                 tablero[5][1] = tirada;
                 dice_5_1.setImageResource(getDiceDrawable(tirada));
+                updateCounter();
             }
         });
         hueco_5_2.setOnClickListener(v -> {
             if (rolleado) {
                 tablero[5][2] = tirada;
                 dice_5_2.setImageResource(getDiceDrawable(tirada));
+                updateCounter();
             }
         });
     }
 
-    public void rolldice() {
+    public void rollDice() {
         Random aleatorio = new Random();
         tirada = aleatorio.nextInt(6) + 1;
         rolleado = true;
@@ -161,5 +173,20 @@ public class MainActivity2 extends AppCompatActivity {
             default:
                 return R.drawable.dice1normal;
         }
+    }
+
+    private void updateCounter() {
+        puntosColumna[0] = getrPuntosColumna(tablero, 0);
+        puntosColumna[1] = getrPuntosColumna(tablero, 1);
+        puntosColumna[2] = getrPuntosColumna(tablero, 2);
+
+
+        puntos_Jugador_columna_0.setText(String.valueOf(puntosColumna[0]));
+        puntos_Jugador_columna_1.setText(String.valueOf(puntosColumna[1]));
+        puntos_Jugador_columna_2.setText(String.valueOf(puntosColumna[2]));
+    }
+
+    private int getrPuntosColumna(int[][] tablero, int columna) {
+        return tablero[3][columna] + tablero[4][columna] + tablero[5][columna];
     }
 }

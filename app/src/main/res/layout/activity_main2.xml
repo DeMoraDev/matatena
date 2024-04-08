@@ -15,40 +15,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/ptsfila1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="80dp"
-        android:text=""
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/tablero_jugador"
-        app:layout_constraintEnd_toStartOf="@id/ptsfila2" />
-
-    <TextView
-        android:id="@+id/ptsfila3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:text=""
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/tablero_jugador"
-        app:layout_constraintStart_toEndOf="@id/ptsfila2"
-        tools:layout_editor_absoluteX="136dp"
-        tools:layout_editor_absoluteY="672dp" />
-
-    <TextView
-        android:id="@+id/ptsfila2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/tablero_jugador"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteX="136dp"
-        tools:layout_editor_absoluteY="672dp" />
 
     <ImageView
         android:id="@+id/lamb"
@@ -94,6 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/emptydice" />
 
+
     <LinearLayout
         android:id="@+id/tablero_jugador"
         android:layout_width="match_parent"
@@ -103,6 +70,50 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/lamb"
         app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/layout_puntos_Jugador_Columnas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/tablero_jugador"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/puntos_Jugador_Columna_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                tools:text="10"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/puntos_Jugador_Columna_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                tools:text="10"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+
+            <TextView
+                android:id="@+id/puntos_Jugador_Columna_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                tools:text="10"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/fila_3"
@@ -440,4 +451,5 @@
         </LinearLayout>
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
