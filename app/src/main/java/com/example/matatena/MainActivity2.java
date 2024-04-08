@@ -12,24 +12,24 @@ import java.util.Random;
 public class MainActivity2 extends AppCompatActivity {
 
     private ImageButton roller1;
-    private ImageButton hueco1;
-    private ImageButton hueco2;
-    private ImageButton hueco3;
-    private ImageButton hueco4;
-    private ImageButton hueco5;
-    private ImageButton hueco6;
-    private ImageButton hueco7;
-    private ImageButton hueco8;
-    private ImageButton hueco9;
-    private ImageButton hueco11;
-
-    private TextView puntos1;
-    private TextView ptsfila1;
-    private TextView ptsfila2;
-    private TextView ptsfila3;
     private ImageView rollerimage;
-    private ImageView dice10;
-    private ImageView dice11;
+    private ImageButton hueco_3_0;
+    private ImageButton hueco_3_1;
+    private ImageButton hueco_3_2;
+    private ImageButton hueco_4_0;
+    private ImageButton hueco_4_1;
+    private ImageButton hueco_4_2;
+    private ImageButton hueco_5_0;
+    private ImageButton hueco_5_1;
+    private ImageButton hueco_5_2;
+
+    private TextView puntosJugador;
+    private TextView puntos_Jugador_columna_0;
+    private TextView puntos_Jugador_columna_1;
+    private TextView puntos_Jugador_columna_2;
+
+    private ImageView dice_3_0;
+    private ImageView dice_3_1;
 
     int[][] tablero;
     int tirada;
@@ -41,22 +41,25 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         roller1 = findViewById(R.id.roller1);
-        hueco1 = findViewById(R.id.hueco_17);
-        hueco2 = findViewById(R.id.hueco_16);
-        hueco3 = findViewById(R.id.hueco_18);
-        hueco4 = findViewById(R.id.hueco_14);
-        hueco5 = findViewById(R.id.hueco_13);
-        hueco6 = findViewById(R.id.hueco_15);
-        hueco11 = findViewById(R.id.hueco_11);
-        hueco8 = findViewById(R.id.hueco_10);
-        hueco9 = findViewById(R.id.hueco_12);
-        puntos1 = findViewById(R.id.puntos1);
-        ptsfila1 = findViewById(R.id.ptsfila1);
-        ptsfila2 = findViewById(R.id.ptsfila2);
-        ptsfila3 = findViewById(R.id.ptsfila3);
         rollerimage = findViewById(R.id.rollerimage);
-        dice10 = findViewById(R.id.dice_10);
-        dice11 = findViewById(R.id.dice_11);
+
+        hueco_5_1 = findViewById(R.id.hueco_5_1);
+        hueco_5_0 = findViewById(R.id.hueco_5_0);
+        hueco_5_2 = findViewById(R.id.hueco_5_2);
+        hueco_4_1 = findViewById(R.id.hueco_4_1);
+        hueco_4_0 = findViewById(R.id.hueco_4_0);
+        hueco_4_2 = findViewById(R.id.hueco_4_2);
+        hueco_3_1 = findViewById(R.id.hueco_3_1);
+        hueco_3_0 = findViewById(R.id.hueco_3_0);
+        hueco_3_2 = findViewById(R.id.hueco_3_2);
+
+        puntosJugador = findViewById(R.id.puntos1);
+        puntos_Jugador_columna_0 = findViewById(R.id.ptsfila1);
+        puntos_Jugador_columna_1 = findViewById(R.id.ptsfila2);
+        puntos_Jugador_columna_2 = findViewById(R.id.ptsfila3);
+
+        dice_3_0 = findViewById(R.id.dice_3_0);
+        dice_3_1 = findViewById(R.id.dice_3_1);
 
         tablero = new int[6][3];
 
@@ -64,19 +67,19 @@ public class MainActivity2 extends AppCompatActivity {
             rolldice();
         });
 
-        hueco8.setOnClickListener(v -> {
+        hueco_3_0.setOnClickListener(v -> {
             if (rolleado) {
                 {
                     tablero[3][0] = tirada;
-                    dice10.setImageResource(getDiceDrawable(tirada));
+                    dice_3_0.setImageResource(getDiceDrawable(tirada));
                 }
             }
         });
-        hueco11.setOnClickListener(v -> {
+        hueco_3_1.setOnClickListener(v -> {
             if (rolleado) {
                 {
                     tablero[3][1] = tirada;
-                    dice11.setImageResource(getDiceDrawable(tirada));
+                    dice_3_1.setImageResource(getDiceDrawable(tirada));
                 }
             }
         });
