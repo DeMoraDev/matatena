@@ -176,16 +176,21 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     private void updateCounter() {
-        puntosColumna[0] = getrPuntosColumna(tablero, 0);
-        puntosColumna[1] = getrPuntosColumna(tablero, 1);
-        puntosColumna[2] = getrPuntosColumna(tablero, 2);
+        puntosColumna[0] = getPuntosColumna(tablero, 0);
+        puntosColumna[1] = getPuntosColumna(tablero, 1);
+        puntosColumna[2] = getPuntosColumna(tablero, 2);
 
         puntos_Jugador_columna_0.setText(String.valueOf(puntosColumna[0]));
         puntos_Jugador_columna_1.setText(String.valueOf(puntosColumna[1]));
         puntos_Jugador_columna_2.setText(String.valueOf(puntosColumna[2]));
+
+        int total = puntosColumna[0]+puntosColumna[1]+puntosColumna[2];
+
+        puntosJugador.setText(String.valueOf(total));
+
     }
 
-    private int getrPuntosColumna(int[][] tablero, int columna) {
+    private int getPuntosColumna(int[][] tablero, int columna) {
         int puntos;
 
         if (tablero[3][columna] == tablero[4][columna]&& tablero[4][columna] == tablero[5][columna]){
@@ -200,5 +205,7 @@ public class MainActivity2 extends AppCompatActivity {
             puntos = tablero[3][columna] + tablero[4][columna] + tablero[5][columna];
         }
         return puntos;
+
     }
+
 }
