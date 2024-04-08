@@ -180,13 +180,25 @@ public class MainActivity2 extends AppCompatActivity {
         puntosColumna[1] = getrPuntosColumna(tablero, 1);
         puntosColumna[2] = getrPuntosColumna(tablero, 2);
 
-
         puntos_Jugador_columna_0.setText(String.valueOf(puntosColumna[0]));
         puntos_Jugador_columna_1.setText(String.valueOf(puntosColumna[1]));
         puntos_Jugador_columna_2.setText(String.valueOf(puntosColumna[2]));
     }
 
     private int getrPuntosColumna(int[][] tablero, int columna) {
-        return tablero[3][columna] + tablero[4][columna] + tablero[5][columna];
+        int puntos;
+
+        if (tablero[3][columna] == tablero[4][columna]&& tablero[4][columna] == tablero[5][columna]){
+            puntos = (tablero[3][columna] + tablero[4][columna] + tablero[5][columna])*3;
+        } else if(tablero[3][columna] == tablero[5][columna]){
+            puntos = ((tablero[3][columna] + tablero[5][columna]) * 2) + tablero[4][columna];
+        }else if(tablero[4][columna] == tablero[5][columna]){
+            puntos = ((tablero[4][columna] + tablero[5][columna]) * 2) + tablero[3][columna];
+        }else if(tablero[3][columna] == tablero[4][columna]) {
+            puntos = ((tablero[3][columna] + tablero[4][columna]) * 2) + tablero[5][columna];
+        }else {
+            puntos = tablero[3][columna] + tablero[4][columna] + tablero[5][columna];
+        }
+        return puntos;
     }
 }
