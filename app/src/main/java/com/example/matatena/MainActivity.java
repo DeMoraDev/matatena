@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton botonComo;
     private ImageButton botonSalir;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
