@@ -61,19 +61,19 @@
         app:srcCompat="@drawable/lamb" />
 
     <TextView
-        android:id="@+id/puntos1"
+        android:id="@+id/puntos_Jugador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:text=""
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/roller1"
+        app:layout_constraintEnd_toStartOf="@id/roller_Jugador"
         app:layout_constraintStart_toEndOf="@id/lamb" />
 
 
     <ImageButton
-        android:id="@+id/roller1"
+        android:id="@+id/roller_Jugador"
         android:layout_width="150dp"
         android:layout_height="80dp"
         android:layout_marginEnd="50dp"
@@ -244,6 +244,18 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/hueco" />
+
+                <ImageView
+                    android:id="@+id/dice_4_0"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
