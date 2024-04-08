@@ -21,12 +21,16 @@ public class MainActivity2 extends AppCompatActivity {
     private ImageButton hueco7;
     private ImageButton hueco8;
     private ImageButton hueco9;
+    private ImageButton hueco11;
+
     private TextView puntos1;
     private TextView ptsfila1;
     private TextView ptsfila2;
     private TextView ptsfila3;
     private ImageView rollerimage;
     private ImageView dice10;
+    private ImageView dice11;
+
     int[][] tablero;
     int tirada;
     boolean rolleado = false;
@@ -43,7 +47,7 @@ public class MainActivity2 extends AppCompatActivity {
         hueco4 = findViewById(R.id.hueco_14);
         hueco5 = findViewById(R.id.hueco_13);
         hueco6 = findViewById(R.id.hueco_15);
-        hueco7 = findViewById(R.id.hueco_11);
+        hueco11 = findViewById(R.id.hueco_11);
         hueco8 = findViewById(R.id.hueco_10);
         hueco9 = findViewById(R.id.hueco_12);
         puntos1 = findViewById(R.id.puntos1);
@@ -52,6 +56,7 @@ public class MainActivity2 extends AppCompatActivity {
         ptsfila3 = findViewById(R.id.ptsfila3);
         rollerimage = findViewById(R.id.rollerimage);
         dice10 = findViewById(R.id.dice_10);
+        dice11 = findViewById(R.id.dice_11);
 
         tablero = new int[6][3];
 
@@ -64,6 +69,14 @@ public class MainActivity2 extends AppCompatActivity {
                 {
                     tablero[3][0] = tirada;
                     dice10.setImageResource(getDiceDrawable(tirada));
+                }
+            }
+        });
+        hueco11.setOnClickListener(v -> {
+            if (rolleado) {
+                {
+                    tablero[3][1] = tirada;
+                    dice11.setImageResource(getDiceDrawable(tirada));
                 }
             }
         });
