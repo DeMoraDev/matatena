@@ -93,60 +93,84 @@ public class MainActivity2 extends AppCompatActivity {
                 }
             }
         });
+
         hueco_3_1.setOnClickListener(v -> {
-            if (rolleado) {
-                tablero[3][1] = tirada;
-                dice_3_1.setImageResource(getDiceDrawable(tirada));
-                updateCounter();
+            if (tablero[3][1] == 0) {
+                if (rolleado) {
+                    tablero[3][1] = tirada;
+                    dice_3_1.setImageResource(getDiceDrawable(tirada));
+                    updateCounter();
+                }
             }
         });
+
         hueco_3_2.setOnClickListener(v -> {
-            if (rolleado) {
-                tablero[3][2] = tirada;
-                dice_3_2.setImageResource(getDiceDrawable(tirada));
-                updateCounter();
+            if (tablero[3][2] == 0) {
+                if (rolleado) {
+                    tablero[3][2] = tirada;
+                    dice_3_2.setImageResource(getDiceDrawable(tirada));
+                    updateCounter();
+                }
             }
         });
+
         hueco_4_0.setOnClickListener(v -> {
-            if (rolleado) {
-                tablero[4][0] = tirada;
-                dice_4_0.setImageResource(getDiceDrawable(tirada));
-                updateCounter();
+            if (tablero[4][0] == 0) {
+                if (rolleado) {
+                    tablero[4][0] = tirada;
+                    dice_4_0.setImageResource(getDiceDrawable(tirada));
+                    updateCounter();
+                }
             }
         });
+
         hueco_4_1.setOnClickListener(v -> {
-            if (rolleado) {
-                tablero[4][1] = tirada;
-                dice_4_1.setImageResource(getDiceDrawable(tirada));
-                updateCounter();
+            if (tablero[4][1] == 0) {
+                if (rolleado) {
+                    tablero[4][1] = tirada;
+                    dice_4_1.setImageResource(getDiceDrawable(tirada));
+                    updateCounter();
+                }
             }
         });
+
         hueco_4_2.setOnClickListener(v -> {
-            if (rolleado) {
-                tablero[4][2] = tirada;
-                dice_4_2.setImageResource(getDiceDrawable(tirada));
-                updateCounter();
+            if (tablero[4][2] == 0) {
+                if (rolleado) {
+                    tablero[4][2] = tirada;
+                    dice_4_2.setImageResource(getDiceDrawable(tirada));
+                    updateCounter();
+                }
             }
         });
+
         hueco_5_0.setOnClickListener(v -> {
-            if (rolleado) {
-                tablero[5][0] = tirada;
-                dice_5_0.setImageResource(getDiceDrawable(tirada));
-                updateCounter();
+            if (tablero[5][0] == 0) {
+                if (rolleado) {
+                    tablero[5][0] = tirada;
+                    dice_5_0.setImageResource(getDiceDrawable(tirada));
+                    updateCounter();
+                }
             }
         });
+
         hueco_5_1.setOnClickListener(v -> {
-            if (rolleado) {
-                tablero[5][1] = tirada;
-                dice_5_1.setImageResource(getDiceDrawable(tirada));
-                updateCounter();
+            if (tablero[5][1] == 0) {
+                if (rolleado) {
+                    tablero[5][1] = tirada;
+                    dice_5_1.setImageResource(getDiceDrawable(tirada));
+                    updateCounter();
+                }
             }
         });
+
         hueco_5_2.setOnClickListener(v -> {
-            if (rolleado) {
-                tablero[5][2] = tirada;
-                dice_5_2.setImageResource(getDiceDrawable(tirada));
-                updateCounter();
+            if (tablero[5][2] == 0) {
+                if (rolleado) {
+                    tablero[5][2] = tirada;
+                    dice_5_2.setImageResource(getDiceDrawable(tirada));
+                    updateCounter();
+                }
             }
         });
     }
