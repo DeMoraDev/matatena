@@ -199,17 +199,17 @@ public class MainActivity2 extends AppCompatActivity {
     private int getDiceDrawableTriple(int tirada) {
         switch (tirada) {
             case 1:
-                return R.drawable.dice1double;
+                return R.drawable.dice1triple;
             case 2:
-                return R.drawable.dice2double;
+                return R.drawable.dice2triple;
             case 3:
-                return R.drawable.dice3double;
+                return R.drawable.dice3triple;
             case 4:
-                return R.drawable.dice4double;
+                return R.drawable.dice4triple;
             case 5:
-                return R.drawable.dice5double;
+                return R.drawable.dice5triple;
             case 6:
-                return R.drawable.dice6double;
+                return R.drawable.dice6triple;
             default:
                 return R.drawable.dice1normal;
         }
