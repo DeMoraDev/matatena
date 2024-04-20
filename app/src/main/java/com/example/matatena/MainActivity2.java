@@ -430,6 +430,35 @@ public class MainActivity2 extends AppCompatActivity {
         return obtenerPosicionAleatoria();
     }
 
+    public int[] buscarNumeroEnemigo(int tiradaIA) {
+        boolean columna0Libre = false;
+        boolean columna1Libre = false;
+        boolean columna2Libre = false;
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (tablero[i][j] == 0) {
+                    if (i == 0)
+                        columna0Libre = true;
+                    if (i == 1)
+                        columna1Libre = true;
+                    if (i == 2)
+                        columna2Libre = true;
+                }
+            }
+        }
+
+        for (int i = 3; i < tablero.length; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (tablero[i][j] == tiradaIA) {
+                    //donde haya hueco buscar la columna con mas puntos con ese dado
+                }
+            }
+        }
+
+        return obtenerPosicionAleatoria();
+    }
+
     private ImageView getImageViewPosition(int[] posicionElegida) {
         if (posicionElegida[0] == 0) {
             if (posicionElegida[1] == 0) {
