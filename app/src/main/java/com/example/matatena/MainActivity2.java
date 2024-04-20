@@ -12,7 +12,7 @@ import java.util.Random;
 public class MainActivity2 extends AppCompatActivity {
 
     private ImageButton roller1;
-    private ImageView rollerimage;
+    private ImageView rollerFinal;
     private ImageButton hueco_3_0;
     private ImageButton hueco_3_1;
     private ImageButton hueco_3_2;
@@ -50,7 +50,7 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         roller1 = findViewById(R.id.roller_Jugador);
-        rollerimage = findViewById(R.id.rollerimage);
+        rollerFinal = findViewById(R.id.rollerimage);
 
         hueco_5_1 = findViewById(R.id.hueco_5_1);
         hueco_5_0 = findViewById(R.id.hueco_5_0);
@@ -90,6 +90,7 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[3][0] = tirada;
                     dice_3_0.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
+                    resetRoller();
                 }
             }
         });
@@ -100,6 +101,7 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[3][1] = tirada;
                     dice_3_1.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
+                    resetRoller();
                 }
             }
         });
@@ -110,6 +112,7 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[3][2] = tirada;
                     dice_3_2.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
+                    resetRoller();
                 }
             }
         });
@@ -120,6 +123,7 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[4][0] = tirada;
                     dice_4_0.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
+                    resetRoller();
                 }
             }
         });
@@ -130,6 +134,7 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[4][1] = tirada;
                     dice_4_1.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
+                    resetRoller();
                 }
             }
         });
@@ -140,6 +145,7 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[4][2] = tirada;
                     dice_4_2.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
+                    resetRoller();
                 }
             }
         });
@@ -150,6 +156,7 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[5][0] = tirada;
                     dice_5_0.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
+                    resetRoller();
                 }
             }
         });
@@ -160,6 +167,7 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[5][1] = tirada;
                     dice_5_1.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
+                    resetRoller();
                 }
             }
         });
@@ -170,6 +178,7 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[5][2] = tirada;
                     dice_5_2.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
+                    resetRoller();
                 }
             }
         });
@@ -179,7 +188,36 @@ public class MainActivity2 extends AppCompatActivity {
         Random aleatorio = new Random();
         tirada = aleatorio.nextInt(6) + 1;
         rolleado = true;
-        rollerimage.setImageResource(getDiceDrawable(tirada));
+        rollerFinal.setImageResource(getDiceDrawable(tirada));
+    }
+
+    private void resetRoller(){
+        rollerFinal.setImageResource(R.drawable.emptydice);
+    }
+
+    /* private void winOrLose(int [][] tablero){
+         if(isFull(tablero)==true){
+             //sumPoints();
+         }
+     }
+
+     private void sumPoints(){
+         if(puntosJugador<puntosIA){
+             ganaIA
+         }else if(puntosJugador>puntosIA){
+             ganaJugador
+         }else{
+             empate
+         }
+     }*/
+    public boolean isFull(int[][] array){
+        for(int i= 0; i < array.length; i++){
+            for (int j = 0; j < array[i].length; j++){
+                if(array[i][j] == 0) {
+                    return false;
+                }
+            }
+        } return true;
     }
 
     private int getDiceDrawable(int tirada) {

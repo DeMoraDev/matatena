@@ -43,12 +43,12 @@
         android:id="@+id/roller_Jugador"
         android:layout_width="150dp"
         android:layout_height="80dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="52dp"
         android:background="@null"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/roller4" />
+        app:srcCompat="@drawable/rollerdefinitivo" />
 
     <ImageView
         android:id="@+id/rollerimage"
