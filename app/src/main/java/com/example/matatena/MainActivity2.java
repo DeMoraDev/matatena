@@ -2,10 +2,12 @@ package com.example.matatena;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -27,6 +29,16 @@ public class MainActivity2 extends AppCompatActivity {
     private TextView puntos_Jugador_columna_0;
     private TextView puntos_Jugador_columna_1;
     private TextView puntos_Jugador_columna_2;
+
+    private ImageView dice_0_0;
+    private ImageView dice_0_1;
+    private ImageView dice_0_2;
+    private ImageView dice_1_0;
+    private ImageView dice_1_1;
+    private ImageView dice_1_2;
+    private ImageView dice_2_0;
+    private ImageView dice_2_1;
+    private ImageView dice_2_2;
 
     private ImageView dice_3_0;
     private ImageView dice_3_1;
@@ -51,6 +63,31 @@ public class MainActivity2 extends AppCompatActivity {
 
         roller1 = findViewById(R.id.roller_Jugador);
         rollerFinal = findViewById(R.id.rollerimage);
+
+        puntosJugador = findViewById(R.id.puntos_Jugador);
+        puntos_Jugador_columna_0 = findViewById(R.id.puntos_Jugador_Columna_0);
+        puntos_Jugador_columna_1 = findViewById(R.id.puntos_Jugador_Columna_1);
+        puntos_Jugador_columna_2 = findViewById(R.id.puntos_Jugador_Columna_2);
+
+        dice_0_0 = findViewById(R.id.dice_0_0);
+        dice_0_1 = findViewById(R.id.dice_0_1);
+        dice_0_2 = findViewById(R.id.dice_0_2);
+        dice_1_0 = findViewById(R.id.dice_1_0);
+        dice_1_1 = findViewById(R.id.dice_1_1);
+        dice_1_2 = findViewById(R.id.dice_1_2);
+        dice_2_0 = findViewById(R.id.dice_2_0);
+        dice_2_1 = findViewById(R.id.dice_2_1);
+        dice_2_2 = findViewById(R.id.dice_2_2);
+
+        dice_3_0 = findViewById(R.id.dice_3_0);
+        dice_3_1 = findViewById(R.id.dice_3_1);
+        dice_3_2 = findViewById(R.id.dice_3_2);
+        dice_4_0 = findViewById(R.id.dice_4_0);
+        dice_4_1 = findViewById(R.id.dice_4_1);
+        dice_4_2 = findViewById(R.id.dice_4_2);
+        dice_5_0 = findViewById(R.id.dice_5_0);
+        dice_5_1 = findViewById(R.id.dice_5_1);
+        dice_5_2 = findViewById(R.id.dice_5_2);
 
         hueco_5_1 = findViewById(R.id.hueco_5_1);
         hueco_5_0 = findViewById(R.id.hueco_5_0);
@@ -81,7 +118,8 @@ public class MainActivity2 extends AppCompatActivity {
         puntosColumna = new int[3];
 
         roller1.setOnClickListener(v -> {
-            rollDice();
+            if (!rolleado)
+                rollDice();
         });
 
         hueco_3_0.setOnClickListener(v -> {
@@ -90,7 +128,6 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[3][0] = tirada;
                     dice_3_0.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
-                    resetRoller();
                 }
             }
         });
@@ -101,7 +138,6 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[3][1] = tirada;
                     dice_3_1.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
-                    resetRoller();
                 }
             }
         });
@@ -112,7 +148,6 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[3][2] = tirada;
                     dice_3_2.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
-                    resetRoller();
                 }
             }
         });
@@ -123,7 +158,6 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[4][0] = tirada;
                     dice_4_0.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
-                    resetRoller();
                 }
             }
         });
@@ -134,7 +168,6 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[4][1] = tirada;
                     dice_4_1.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
-                    resetRoller();
                 }
             }
         });
@@ -145,7 +178,6 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[4][2] = tirada;
                     dice_4_2.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
-                    resetRoller();
                 }
             }
         });
@@ -156,7 +188,6 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[5][0] = tirada;
                     dice_5_0.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
-                    resetRoller();
                 }
             }
         });
@@ -167,7 +198,6 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[5][1] = tirada;
                     dice_5_1.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
-                    resetRoller();
                 }
             }
         });
@@ -178,7 +208,6 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[5][2] = tirada;
                     dice_5_2.setImageResource(getDiceDrawable(tirada));
                     updateCounter();
-                    resetRoller();
                 }
             }
         });
@@ -191,7 +220,7 @@ public class MainActivity2 extends AppCompatActivity {
         rollerFinal.setImageResource(getDiceDrawable(tirada));
     }
 
-    private void resetRoller(){
+    private void resetRoller() {
         rollerFinal.setImageResource(R.drawable.emptydice);
     }
 
@@ -210,15 +239,34 @@ public class MainActivity2 extends AppCompatActivity {
              empate
          }
      }*/
-    public boolean isFull(int[][] array){
-        for(int i= 0; i < array.length; i++){
-            for (int j = 0; j < array[i].length; j++){
-                if(array[i][j] == 0) {
+    public boolean isGameFinished() {
+        return isBoardPlayerUnoFull() || isBoardPlayerDosFull();
+    }
+
+    public boolean isBoardPlayerUnoFull() {
+        for (int i = 0; i <= 2; i++) {
+            for (int j = 0; j < tablero[i].length; j++) {
+                if (tablero[i][j] == 0) {
                     return false;
                 }
             }
-        } return true;
+        }
+
+        return true;
     }
+
+    public boolean isBoardPlayerDosFull() {
+        for (int i = 3; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[i].length; j++) {
+                if (tablero[i][j] == 0) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
 
     private int getDiceDrawable(int tirada) {
         switch (tirada) {
@@ -278,6 +326,7 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     private void updateCounter() {
+        resetRoller();
         rolleado = false;
 
         puntosColumna[0] = getPuntosColumna(tablero, 0);
@@ -290,7 +339,65 @@ public class MainActivity2 extends AppCompatActivity {
 
         int total = puntosColumna[0] + puntosColumna[1] + puntosColumna[2];
         puntosJugador.setText(String.valueOf(total));
+
+        if (isGameFinished()) {
+            rolleado = true;
+            Toast toast =
+                    Toast.makeText(getApplicationContext(),
+                            "Final", Toast.LENGTH_SHORT);
+
+            toast.show();
+        } else
+            iaPlay();
     }
+
+    private void iaPlay() {
+        Random aleatorio = new Random();
+        int dadoIa = aleatorio.nextInt(6) + 1;
+
+        int[] posicion = obtenerPosicionAleatoria();
+        tablero[posicion[0]][posicion[1]] = dadoIa;
+
+        getIAImageViewPosition(posicion).setImageResource(getDiceDrawable(dadoIa));
+    }
+
+    public int[] obtenerPosicionAleatoria() {
+        Random rand = new Random();
+        int fila, columna;
+
+        do {
+            fila = rand.nextInt(3);
+            columna = rand.nextInt(3);
+        } while (tablero[fila][columna] != 0);
+
+        return new int[]{fila, columna};
+    }
+
+    private ImageView getIAImageViewPosition(int[] posicionElegida) {
+        if (posicionElegida[0] == 0) {
+            if (posicionElegida[1] == 0) {
+                return dice_0_0;
+            } else if (posicionElegida[1] == 1) {
+                return dice_0_1;
+            } else
+                return dice_0_2;
+        } else if (posicionElegida[0] == 1) {
+            if (posicionElegida[1] == 0) {
+                return dice_1_0;
+            } else if (posicionElegida[1] == 1) {
+                return dice_1_1;
+            } else
+                return dice_1_2;
+        } else {
+            if (posicionElegida[1] == 0) {
+                return dice_2_0;
+            } else if (posicionElegida[1] == 1) {
+                return dice_2_1;
+            } else
+                return dice_2_2;
+        }
+    }
+
 
     private int getPuntosColumna(int[][] tablero, int columna) {
         int puntos;
