@@ -37,17 +37,6 @@
         app:layout_constraintStart_toEndOf="@id/lamb"
         tools:text="10" />
 
-    <ImageView
-        android:id="@+id/rollerimageIA"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="95dp"
-        android:layout_marginBottom="10dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/emptydice" />
-
     <ImageButton
         android:id="@+id/roller_IA"
         android:layout_width="150dp"
@@ -58,6 +47,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/rollerdefinitivo" />
+
+    <ImageView
+        android:id="@+id/rollerimageIA"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginBottom="10dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/emptydice" />
 
     <LinearLayout
         android:id="@+id/tablero_IA"

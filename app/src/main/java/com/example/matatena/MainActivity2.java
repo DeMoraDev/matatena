@@ -2,8 +2,8 @@ package com.example.matatena;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +30,7 @@ public class MainActivity2 extends AppCompatActivity {
     private TextView puntos_Jugador_columna_1;
     private TextView puntos_Jugador_columna_2;
 
+    private ImageView rollerimageIA;
     private ImageView dice_0_0;
     private ImageView dice_0_1;
     private ImageView dice_0_2;
@@ -64,11 +65,14 @@ public class MainActivity2 extends AppCompatActivity {
         roller1 = findViewById(R.id.roller_Jugador);
         rollerFinal = findViewById(R.id.rollerimage);
 
+
         puntosJugador = findViewById(R.id.puntos_Jugador);
         puntos_Jugador_columna_0 = findViewById(R.id.puntos_Jugador_Columna_0);
         puntos_Jugador_columna_1 = findViewById(R.id.puntos_Jugador_Columna_1);
         puntos_Jugador_columna_2 = findViewById(R.id.puntos_Jugador_Columna_2);
 
+
+        rollerimageIA = findViewById(R.id.rollerimageIA);
         dice_0_0 = findViewById(R.id.dice_0_0);
         dice_0_1 = findViewById(R.id.dice_0_1);
         dice_0_2 = findViewById(R.id.dice_0_2);
@@ -127,7 +131,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[3][0] = tirada;
                     dice_3_0.setImageResource(getDiceDrawable(tirada));
-                    updateCounter();
+                    updateCounterPlayer();
                 }
             }
         });
@@ -137,7 +141,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[3][1] = tirada;
                     dice_3_1.setImageResource(getDiceDrawable(tirada));
-                    updateCounter();
+                    updateCounterPlayer();
                 }
             }
         });
@@ -147,7 +151,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[3][2] = tirada;
                     dice_3_2.setImageResource(getDiceDrawable(tirada));
-                    updateCounter();
+                    updateCounterPlayer();
                 }
             }
         });
@@ -157,7 +161,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[4][0] = tirada;
                     dice_4_0.setImageResource(getDiceDrawable(tirada));
-                    updateCounter();
+                    updateCounterPlayer();
                 }
             }
         });
@@ -167,7 +171,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[4][1] = tirada;
                     dice_4_1.setImageResource(getDiceDrawable(tirada));
-                    updateCounter();
+                    updateCounterPlayer();
                 }
             }
         });
@@ -177,7 +181,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[4][2] = tirada;
                     dice_4_2.setImageResource(getDiceDrawable(tirada));
-                    updateCounter();
+                    updateCounterPlayer();
                 }
             }
         });
@@ -187,7 +191,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[5][0] = tirada;
                     dice_5_0.setImageResource(getDiceDrawable(tirada));
-                    updateCounter();
+                    updateCounterPlayer();
                 }
             }
         });
@@ -197,7 +201,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[5][1] = tirada;
                     dice_5_1.setImageResource(getDiceDrawable(tirada));
-                    updateCounter();
+                    updateCounterPlayer();
                 }
             }
         });
@@ -207,7 +211,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[5][2] = tirada;
                     dice_5_2.setImageResource(getDiceDrawable(tirada));
-                    updateCounter();
+                    updateCounterPlayer();
                 }
             }
         });
@@ -325,9 +329,8 @@ public class MainActivity2 extends AppCompatActivity {
         }
     }
 
-    private void updateCounter() {
+    private void updateCounterPlayer() {
         resetRoller();
-        rolleado = false;
 
         puntosColumna[0] = getPuntosColumna(tablero, 0);
         puntosColumna[1] = getPuntosColumna(tablero, 1);
@@ -347,19 +350,37 @@ public class MainActivity2 extends AppCompatActivity {
                             "Final", Toast.LENGTH_SHORT);
 
             toast.show();
-        } else
+        } else {
             iaPlay();
+            rolleado = false;
+        }
     }
 
     private void iaPlay() {
-        Random aleatorio = new Random();
-        int dadoIa = aleatorio.nextInt(6) + 1;
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Random aleatorio = new Random();
+                int dadoIa = aleatorio.nextInt(6) + 1;
+                int[] posicion = buscarNumeroEnColumnas(dadoIa);
 
-        int[] posicion = obtenerPosicionAleatoria();
-        tablero[posicion[0]][posicion[1]] = dadoIa;
-
-        getIAImageViewPosition(posicion).setImageResource(getDiceDrawable(dadoIa));
+                tablero[posicion[0]][posicion[1]] = dadoIa;
+                rollerimageIA.setImageResource(getDiceDrawable(dadoIa));
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getImageViewPosition(posicion).setImageResource(getDiceDrawable(dadoIa));
+                        rollerimageIA.setImageResource(R.drawable.emptydice);
+                    }
+                }, 2000);
+            }
+        }, 1000);
     }
+
+    //puntos ia
+    //eliminar repetidos en columna
+    //si hay dobles o triples cambiar color
 
     public int[] obtenerPosicionAleatoria() {
         Random rand = new Random();
@@ -373,7 +394,43 @@ public class MainActivity2 extends AppCompatActivity {
         return new int[]{fila, columna};
     }
 
-    private ImageView getIAImageViewPosition(int[] posicionElegida) {
+
+    public int[] buscarNumeroEnColumnas(int tiradaIA) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (tablero[i][j] == tiradaIA) {
+                    if (i == 0) {
+                        if (tablero[1][j] == 0) {
+                            return new int[]{1, j};
+                        }
+                        if (tablero[2][j] == 0) {
+                            return new int[]{2, j};
+                        }
+                    }
+                    if (i == 1) {
+                        if (tablero[0][j] == 0) {
+                            return new int[]{0, j};
+                        }
+                        if (tablero[2][j] == 0) {
+                            return new int[]{2, j};
+                        }
+                    }
+                    if (i == 2) {
+                        if (tablero[0][j] == 0) {
+                            return new int[]{0, j};
+                        }
+                        if (tablero[1][j] == 0) {
+                            return new int[]{1, j};
+                        }
+                    }
+                }
+            }
+        }
+
+        return obtenerPosicionAleatoria();
+    }
+
+    private ImageView getImageViewPosition(int[] posicionElegida) {
         if (posicionElegida[0] == 0) {
             if (posicionElegida[1] == 0) {
                 return dice_0_0;
