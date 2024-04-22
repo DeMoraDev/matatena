@@ -2,12 +2,14 @@ package com.example.matatena;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.View;
 
 import java.util.Random;
 
@@ -57,10 +59,14 @@ public class MainActivity2 extends AppCompatActivity {
 
     int[] puntosColumna;
 
+    //Audio
+    private MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.dicesound);
 
         roller1 = findViewById(R.id.roller_Jugador);
         rollerFinal = findViewById(R.id.rollerimage);
@@ -122,9 +128,13 @@ public class MainActivity2 extends AppCompatActivity {
         puntosColumna = new int[3];
 
         roller1.setOnClickListener(v -> {
+
             if (!rolleado)
                 rollDice();
+            mediaPlayer.start();
         });
+
+
 
         hueco_3_0.setOnClickListener(v -> {
             if (tablero[3][0] == 0) {
@@ -228,21 +238,7 @@ public class MainActivity2 extends AppCompatActivity {
         rollerFinal.setImageResource(R.drawable.emptydice);
     }
 
-    /* private void winOrLose(int [][] tablero){
-         if(isFull(tablero)==true){
-             //sumPoints();
-         }
-     }
 
-     private void sumPoints(){
-         if(puntosJugador<puntosIA){
-             ganaIA
-         }else if(puntosJugador>puntosIA){
-             ganaJugador
-         }else{
-             empate
-         }
-     }*/
     public boolean isGameFinished() {
         return isBoardPlayerUnoFull() || isBoardPlayerDosFull();
     }
@@ -373,7 +369,7 @@ public class MainActivity2 extends AppCompatActivity {
                         getImageViewPosition(posicion).setImageResource(getDiceDrawable(dadoIa));
                         rollerimageIA.setImageResource(R.drawable.emptydice);
                     }
-                }, 2000);
+                }, 1500);
             }
         }, 1000);
     }

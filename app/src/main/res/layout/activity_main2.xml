@@ -16,25 +16,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/lamb"
+        android:id="@+id/bossIA"
         android:layout_width="130dp"
         android:layout_height="100dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/lamb" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/bossvaquitofinal" />
 
     <TextView
-        android:id="@+id/puntos_Jugador"
+        android:id="@+id/puntos_IA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
         android:textColor="@color/black"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/roller_Jugador"
-        app:layout_constraintStart_toEndOf="@id/lamb"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/roller_IA"
         tools:text="10" />
 
     <ImageButton
@@ -862,6 +861,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/emptydice" />
+
+    <TextView
+        android:id="@+id/puntos_Jugador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/roller_Jugador"
+        app:layout_constraintStart_toEndOf="@id/lamb"
+        tools:text="10" />
+
+    <ImageView
+        android:id="@+id/lamb"
+        android:layout_width="130dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="20dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/lamb" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
