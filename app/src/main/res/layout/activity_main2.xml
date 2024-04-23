@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-        android:src="@drawable/ingamebackground"
+        android:src="@drawable/backgroundfinal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,8 +21,8 @@
         android:layout_height="100dp"
         android:layout_marginEnd="20dp"
         android:scaleType="fitCenter"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bossvaquitofinal" />
 
     <TextView
@@ -32,8 +32,9 @@
         android:layout_marginTop="30dp"
         android:textColor="@color/black"
         android:textSize="30sp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/bossIA"
         app:layout_constraintStart_toEndOf="@id/roller_IA"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="10" />
 
     <ImageButton
@@ -73,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/tablero_jugador"
+            app:layout_constraintTop_toBottomOf="@id/tablero_IA"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 

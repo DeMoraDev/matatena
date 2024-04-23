@@ -142,6 +142,7 @@ public class MainActivity2 extends AppCompatActivity {
                     tablero[3][0] = tirada;
                     dice_3_0.setImageResource(getDiceDrawable(tirada));
                     updateCounterPlayer();
+
                 }
             }
         });
@@ -348,7 +349,7 @@ public class MainActivity2 extends AppCompatActivity {
             toast.show();
         } else {
             iaPlay();
-            rolleado = false;
+
         }
     }
 
@@ -368,6 +369,7 @@ public class MainActivity2 extends AppCompatActivity {
                     public void run() {
                         getImageViewPosition(posicion).setImageResource(getDiceDrawable(dadoIa));
                         rollerimageIA.setImageResource(R.drawable.emptydice);
+                        rolleado=false;
                     }
                 }, 1500);
             }
