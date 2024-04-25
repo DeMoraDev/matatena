@@ -8,8 +8,6 @@ import android.os.Handler;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.view.View;
 
 import java.util.Random;
 
@@ -70,6 +68,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     //Audio
     private MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,13 +151,12 @@ public class MainActivity2 extends AppCompatActivity {
         });
 
 
-
         hueco_3_0.setOnClickListener(v -> {
             if (tablero[3][0] == 0) {
                 if (rolleado) {
                     tablero[3][0] = tirada;
                     dice_3_0.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer();
+                    updateCounterPlayer(3, 0);
 
                 }
             }
@@ -169,7 +167,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[3][1] = tirada;
                     dice_3_1.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer();
+                    updateCounterPlayer(3, 1);
                 }
             }
         });
@@ -179,7 +177,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[3][2] = tirada;
                     dice_3_2.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer();
+                    updateCounterPlayer(3, 2);
                 }
             }
         });
@@ -189,7 +187,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[4][0] = tirada;
                     dice_4_0.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer();
+                    updateCounterPlayer(4, 0);
                 }
             }
         });
@@ -199,7 +197,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[4][1] = tirada;
                     dice_4_1.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer();
+                    updateCounterPlayer(4, 1);
                 }
             }
         });
@@ -209,7 +207,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[4][2] = tirada;
                     dice_4_2.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer();
+                    updateCounterPlayer(4, 2);
                 }
             }
         });
@@ -219,7 +217,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[5][0] = tirada;
                     dice_5_0.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer();
+                    updateCounterPlayer(5, 0);
                 }
             }
         });
@@ -229,7 +227,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[5][1] = tirada;
                     dice_5_1.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer();
+                    updateCounterPlayer(5, 1);
                 }
             }
         });
@@ -239,7 +237,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (rolleado) {
                     tablero[5][2] = tirada;
                     dice_5_2.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer();
+                    updateCounterPlayer(5, 2);
                 }
             }
         });
@@ -343,9 +341,13 @@ public class MainActivity2 extends AppCompatActivity {
         }
     }
 
-    private void updateCounterPlayer() {
+    private void updateCounterPlayer(int posX, int posY) {
         resetRoller();
+        //saberValorTirada(tirada);
 
+        buscarDadoEnemigo(posX, posY);
+
+        //Parte jugador
         puntosColumna[0] = getPuntosColumna(tablero, 0);
         puntosColumna[1] = getPuntosColumna(tablero, 1);
         puntosColumna[2] = getPuntosColumna(tablero, 2);
@@ -358,7 +360,6 @@ public class MainActivity2 extends AppCompatActivity {
         puntosJugador.setText(String.valueOf(total));
 
         //Parte de la IA
-
         puntosColumnaIA[0] = getPuntosColumnaIA(tablero, 0);
         puntosColumnaIA[1] = getPuntosColumnaIA(tablero, 1);
         puntosColumnaIA[2] = getPuntosColumnaIA(tablero, 2);
@@ -373,11 +374,11 @@ public class MainActivity2 extends AppCompatActivity {
         if (isGameFinished()) {
             rolleado = true;
 
-            if(total<totalIA){
+            if (total < totalIA) {
                 ganador.setText("Gana Vaquito");
-            }else if(total>totalIA){
+            } else if (total > totalIA) {
                 ganador.setText("Gana Jugador");
-            }else{
+            } else {
                 ganador.setText("Empate");
             }
         } else {
@@ -404,7 +405,7 @@ public class MainActivity2 extends AppCompatActivity {
                             getImageViewPosition(posicion).setImageResource(getDiceDrawable(dadoIa));
                             rollerimageIA.setImageResource(R.drawable.emptydice);
                             rolleado = false;
-                            updateCounterPlayer();
+                            updateCounterPlayer(posicion[0], posicion[1]);
                         }
                     }, 1500);
                 }
@@ -415,6 +416,49 @@ public class MainActivity2 extends AppCompatActivity {
 
     //eliminar repetidos en columna
 
+    public int saberValorTirada(int tirada) {
+        return tirada;
+    }
+    /*public int[] buscarDadoEnemigo(int tirada) {
+
+        if (rolleado) {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (tablero[i][j] == tirada) {
+
+                        if (tablero[0][j] == tablero[i][j]) {
+                            tablero[0][j] = 0;
+                        }
+                        if (tablero[1][j] == 0) {
+                            tablero[1][j] = 0;
+                        }
+                        if (tablero[2][j] == 0) {
+                            tablero[2][j] = 0;
+                        }
+                    }
+                }
+            }
+        }
+        }
+        */
+
+    public void buscarDadoEnemigo(int posX, int posY) {
+        if (posX <= 2) {
+            for (int i = 3; i < tablero.length; i++) {
+                if (tablero[posX][posY] == tablero[i][posY]) {
+                    tablero[i][posY] = 0;
+                    getDiceDrawableFromPosition(i,posY).setImageResource(R.drawable.emptydice);
+                }
+            }
+        } else {
+            for (int i = 0; i < 3; i++) {
+                if (tablero[posX][posY] == tablero[i][posY]) {
+                    tablero[i][posY] = 0;
+                    getDiceDrawableFromPosition(i,posY).setImageResource(R.drawable.emptydice);
+                }
+            }
+        }
+    }
 
     public int[] obtenerPosicionAleatoria() {
         Random rand = new Random();
@@ -545,8 +589,56 @@ public class MainActivity2 extends AppCompatActivity {
         return puntos;
     }
 
+    private int getPuntosColumnaIA(int[][] tablero, int columna) {
+        int puntosIA;
+
+        if (tablero[0][columna] != 0 && tablero[0][columna] == tablero[1][columna] && tablero[1][columna] == tablero[2][columna]) {
+            puntosIA = (tablero[0][columna] + tablero[1][columna] + tablero[2][columna]) * 3;
+            getDiceDrawableFromPosition(0, columna).setImageResource(getDiceDrawableTriple(tablero[0][columna]));
+            getDiceDrawableFromPosition(1, columna).setImageResource(getDiceDrawableTriple(tablero[1][columna]));
+            getDiceDrawableFromPosition(2, columna).setImageResource(getDiceDrawableTriple(tablero[2][columna]));
+        } else if (tablero[0][columna] != 0 && tablero[0][columna] == tablero[2][columna]) {
+            puntosIA = ((tablero[0][columna] + tablero[2][columna]) * 2) + tablero[1][columna];
+            getDiceDrawableFromPosition(0, columna).setImageResource(getDiceDrawableDouble(tablero[0][columna]));
+            getDiceDrawableFromPosition(2, columna).setImageResource(getDiceDrawableDouble(tablero[2][columna]));
+        } else if (tablero[1][columna] != 0 && tablero[1][columna] == tablero[2][columna]) {
+            puntosIA = ((tablero[1][columna] + tablero[2][columna]) * 2) + tablero[0][columna];
+            getDiceDrawableFromPosition(1, columna).setImageResource(getDiceDrawableDouble(tablero[1][columna]));
+            getDiceDrawableFromPosition(2, columna).setImageResource(getDiceDrawableDouble(tablero[2][columna]));
+        } else if (tablero[0][columna] != 0 && tablero[0][columna] == tablero[1][columna]) {
+            puntosIA = ((tablero[0][columna] + tablero[1][columna]) * 2) + tablero[2][columna];
+            getDiceDrawableFromPosition(0, columna).setImageResource(getDiceDrawableDouble(tablero[0][columna]));
+            getDiceDrawableFromPosition(1, columna).setImageResource(getDiceDrawableDouble(tablero[1][columna]));
+        } else {
+            puntosIA = tablero[0][columna] + tablero[1][columna] + tablero[2][columna];
+        }
+        return puntosIA;
+    }
+
+
     private ImageView getDiceDrawableFromPosition(int fila, int columna) {
-        if (fila == 3) {
+        if (fila == 0) {
+            if (columna == 0)
+                return dice_0_0;
+            else if (columna == 1)
+                return dice_0_1;
+            else
+                return dice_0_2;
+        } else if (fila == 1) {
+            if (columna == 0)
+                return dice_1_0;
+            else if (columna == 1)
+                return dice_1_1;
+            else
+                return dice_1_2;
+        } else if (fila == 2) {
+            if (columna == 0)
+                return dice_2_0;
+            else if (columna == 1)
+                return dice_2_1;
+            else
+                return dice_2_2;
+        } else if (fila == 3) {
             if (columna == 0)
                 return dice_3_0;
             else if (columna == 1)
@@ -567,57 +659,6 @@ public class MainActivity2 extends AppCompatActivity {
                 return dice_5_1;
             else
                 return dice_5_2;
-        }
-    }
-
-    private int getPuntosColumnaIA(int[][] tablero, int columna) {
-        int puntosIA;
-
-        if (tablero[0][columna] != 0 && tablero[0][columna] == tablero[1][columna] && tablero[1][columna] == tablero[2][columna]) {
-            puntosIA = (tablero[0][columna] + tablero[1][columna] + tablero[2][columna]) * 3;
-            getDiceDrawableFromPositionIA(0, columna).setImageResource(getDiceDrawableTriple(tablero[0][columna]));
-            getDiceDrawableFromPositionIA(1, columna).setImageResource(getDiceDrawableTriple(tablero[1][columna]));
-            getDiceDrawableFromPositionIA(2, columna).setImageResource(getDiceDrawableTriple(tablero[2][columna]));
-        } else if (tablero[0][columna] != 0 && tablero[0][columna] == tablero[2][columna]) {
-            puntosIA = ((tablero[0][columna] + tablero[2][columna]) * 2) + tablero[1][columna];
-            getDiceDrawableFromPositionIA(0, columna).setImageResource(getDiceDrawableDouble(tablero[0][columna]));
-            getDiceDrawableFromPositionIA(2, columna).setImageResource(getDiceDrawableDouble(tablero[2][columna]));
-        } else if (tablero[1][columna] != 0 && tablero[1][columna] == tablero[2][columna]) {
-            puntosIA = ((tablero[1][columna] + tablero[2][columna]) * 2) + tablero[0][columna];
-            getDiceDrawableFromPositionIA(1, columna).setImageResource(getDiceDrawableDouble(tablero[1][columna]));
-            getDiceDrawableFromPositionIA(2, columna).setImageResource(getDiceDrawableDouble(tablero[2][columna]));
-        } else if (tablero[0][columna] != 0 && tablero[0][columna] == tablero[1][columna]) {
-            puntosIA = ((tablero[0][columna] + tablero[1][columna]) * 2) + tablero[2][columna];
-            getDiceDrawableFromPositionIA(0, columna).setImageResource(getDiceDrawableDouble(tablero[0][columna]));
-            getDiceDrawableFromPositionIA(1, columna).setImageResource(getDiceDrawableDouble(tablero[1][columna]));
-        } else {
-            puntosIA = tablero[0][columna] + tablero[1][columna] + tablero[2][columna];
-        }
-        return puntosIA;
-    }
-
-    private ImageView getDiceDrawableFromPositionIA(int fila, int columna) {
-        if (fila == 0) {
-            if (columna == 0)
-                return dice_0_0;
-            else if (columna == 1)
-                return dice_0_1;
-            else
-                return dice_0_2;
-        } else if (fila == 1) {
-            if (columna == 0)
-                return dice_1_0;
-            else if (columna == 1)
-                return dice_1_1;
-            else
-                return dice_1_2;
-        } else {
-            if (columna == 0)
-                return dice_2_0;
-            else if (columna == 1)
-                return dice_2_1;
-            else
-                return dice_2_2;
         }
     }
 }
