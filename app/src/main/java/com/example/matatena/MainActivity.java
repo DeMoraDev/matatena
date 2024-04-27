@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         mediaPlayer = MediaPlayer.create(this, R.raw.music);
         mediaPlayer.setLooping(true);
-        mediaPlayer.start();
+        //mediaPlayer.start();
 
         botonJugar = findViewById(R.id.botonJugar);
         botonComo = findViewById(R.id.botonComo);

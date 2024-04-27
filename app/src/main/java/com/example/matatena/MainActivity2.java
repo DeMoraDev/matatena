@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.Random;
 
 public class MainActivity2 extends AppCompatActivity {
@@ -59,6 +61,8 @@ public class MainActivity2 extends AppCompatActivity {
     private ImageView dice_5_1;
     private ImageView dice_5_2;
 
+    private Button botonReseteo;
+
     int[][] tablero;
     int tirada;
     boolean rolleado = false;
@@ -68,6 +72,8 @@ public class MainActivity2 extends AppCompatActivity {
 
     //Audio
     private MediaPlayer mediaPlayer;
+    private int total;
+    private int totalIA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +128,8 @@ public class MainActivity2 extends AppCompatActivity {
         hueco_3_1 = findViewById(R.id.hueco_3_1);
         hueco_3_0 = findViewById(R.id.hueco_3_0);
         hueco_3_2 = findViewById(R.id.hueco_3_2);
+
+        botonReseteo = findViewById(R.id.botonReseteo);
 
         puntosJugador = findViewById(R.id.puntos_Jugador);
         puntos_Jugador_columna_0 = findViewById(R.id.puntos_Jugador_Columna_0);
@@ -241,6 +249,11 @@ public class MainActivity2 extends AppCompatActivity {
                 }
             }
         });
+
+        botonReseteo.setOnClickListener(v -> {
+            resetGame();
+
+        });
     }
 
     public void rollDice() {
@@ -252,6 +265,18 @@ public class MainActivity2 extends AppCompatActivity {
 
     private void resetRoller() {
         rollerFinal.setImageResource(R.drawable.emptydice);
+    }
+
+    private void resetGame() {
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[0].length; j++) {
+                tablero[i][j] = 0;
+                getDiceDrawableFromPosition(i, j).setImageResource(R.drawable.emptydice);
+            }
+        }
+        calculoPuntos();
+        rolleado = false;
+
     }
 
 
@@ -284,68 +309,7 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
 
-    private int getDiceDrawable(int tirada) {
-        switch (tirada) {
-            case 1:
-                return R.drawable.dice1normal;
-            case 2:
-                return R.drawable.dice2normal;
-            case 3:
-                return R.drawable.dice3normal;
-            case 4:
-                return R.drawable.dice4normal;
-            case 5:
-                return R.drawable.dice5normal;
-            case 6:
-                return R.drawable.dice6normal;
-            default:
-                return R.drawable.dice1normal;
-        }
-    }
-
-    private int getDiceDrawableDouble(int tirada) {
-        switch (tirada) {
-            case 1:
-                return R.drawable.dice1double;
-            case 2:
-                return R.drawable.dice2double;
-            case 3:
-                return R.drawable.dice3double;
-            case 4:
-                return R.drawable.dice4double;
-            case 5:
-                return R.drawable.dice5double;
-            case 6:
-                return R.drawable.dice6double;
-            default:
-                return R.drawable.dice1normal;
-        }
-    }
-
-    private int getDiceDrawableTriple(int tirada) {
-        switch (tirada) {
-            case 1:
-                return R.drawable.dice1triple;
-            case 2:
-                return R.drawable.dice2triple;
-            case 3:
-                return R.drawable.dice3triple;
-            case 4:
-                return R.drawable.dice4triple;
-            case 5:
-                return R.drawable.dice5triple;
-            case 6:
-                return R.drawable.dice6triple;
-            default:
-                return R.drawable.dice1normal;
-        }
-    }
-
-    private void updateCounterPlayer(int posX, int posY) {
-        resetRoller();
-        //saberValorTirada(tirada);
-
-        buscarDadoEnemigo(posX, posY);
+    private void calculoPuntos() {
 
         //Parte jugador
         puntosColumna[0] = getPuntosColumna(tablero, 0);
@@ -356,7 +320,7 @@ public class MainActivity2 extends AppCompatActivity {
         puntos_Jugador_columna_1.setText(String.valueOf(puntosColumna[1]));
         puntos_Jugador_columna_2.setText(String.valueOf(puntosColumna[2]));
 
-        int total = puntosColumna[0] + puntosColumna[1] + puntosColumna[2];
+        total = puntosColumna[0] + puntosColumna[1] + puntosColumna[2];
         puntosJugador.setText(String.valueOf(total));
 
         //Parte de la IA
@@ -368,16 +332,26 @@ public class MainActivity2 extends AppCompatActivity {
         puntos_IA_columna_1.setText(String.valueOf(puntosColumnaIA[1]));
         puntos_IA_columna_2.setText(String.valueOf(puntosColumnaIA[2]));
 
-        int totalIA = puntosColumnaIA[0] + puntosColumnaIA[1] + puntosColumnaIA[2];
+        totalIA = puntosColumnaIA[0] + puntosColumnaIA[1] + puntosColumnaIA[2];
         puntosIA_Total.setText(String.valueOf(totalIA));
+    }
+
+    private void updateCounterPlayer(int posX, int posY) {
+        resetRoller();
+
+        buscarDadoEnemigo(posX, posY);
+
+        calculoPuntos();
 
         if (isGameFinished()) {
-            rolleado = true;
+
 
             if (total < totalIA) {
                 ganador.setText("Gana Vaquito");
+
             } else if (total > totalIA) {
                 ganador.setText("Gana Jugador");
+
             } else {
                 ganador.setText("Empate");
             }
@@ -385,6 +359,7 @@ public class MainActivity2 extends AppCompatActivity {
             iaPlay();
 
         }
+
     }
 
     private void iaPlay() {
@@ -414,47 +389,19 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
 
-    //eliminar repetidos en columna
-
-    public int saberValorTirada(int tirada) {
-        return tirada;
-    }
-    /*public int[] buscarDadoEnemigo(int tirada) {
-
-        if (rolleado) {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    if (tablero[i][j] == tirada) {
-
-                        if (tablero[0][j] == tablero[i][j]) {
-                            tablero[0][j] = 0;
-                        }
-                        if (tablero[1][j] == 0) {
-                            tablero[1][j] = 0;
-                        }
-                        if (tablero[2][j] == 0) {
-                            tablero[2][j] = 0;
-                        }
-                    }
-                }
-            }
-        }
-        }
-        */
-
     public void buscarDadoEnemigo(int posX, int posY) {
         if (posX <= 2) {
             for (int i = 3; i < tablero.length; i++) {
                 if (tablero[posX][posY] == tablero[i][posY]) {
                     tablero[i][posY] = 0;
-                    getDiceDrawableFromPosition(i,posY).setImageResource(R.drawable.emptydice);
+                    getDiceDrawableFromPosition(i, posY).setImageResource(R.drawable.emptydice);
                 }
             }
         } else {
             for (int i = 0; i < 3; i++) {
                 if (tablero[posX][posY] == tablero[i][posY]) {
                     tablero[i][posY] = 0;
-                    getDiceDrawableFromPosition(i,posY).setImageResource(R.drawable.emptydice);
+                    getDiceDrawableFromPosition(i, posY).setImageResource(R.drawable.emptydice);
                 }
             }
         }
@@ -501,35 +448,6 @@ public class MainActivity2 extends AppCompatActivity {
                             return new int[]{1, j};
                         }
                     }
-                }
-            }
-        }
-
-        return obtenerPosicionAleatoria();
-    }
-
-    public int[] buscarNumeroEnemigo(int tiradaIA) {
-        boolean columna0Libre = false;
-        boolean columna1Libre = false;
-        boolean columna2Libre = false;
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (tablero[i][j] == 0) {
-                    if (i == 0)
-                        columna0Libre = true;
-                    if (i == 1)
-                        columna1Libre = true;
-                    if (i == 2)
-                        columna2Libre = true;
-                }
-            }
-        }
-
-        for (int i = 3; i < tablero.length; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (tablero[i][j] == tiradaIA) {
-                    //donde haya hueco buscar la columna con mas puntos con ese dado
                 }
             }
         }
@@ -659,6 +577,82 @@ public class MainActivity2 extends AppCompatActivity {
                 return dice_5_1;
             else
                 return dice_5_2;
+        }
+    }
+
+    private int getDiceDrawable(int tirada) {
+        switch (tirada) {
+            case 1:
+                return R.drawable.dice1normal;
+            case 2:
+                return R.drawable.dice2normal;
+            case 3:
+                return R.drawable.dice3normal;
+            case 4:
+                return R.drawable.dice4normal;
+            case 5:
+                return R.drawable.dice5normal;
+            case 6:
+                return R.drawable.dice6normal;
+            default:
+                return R.drawable.dice1normal;
+        }
+    }
+
+    private int getDiceDrawableDouble(int tirada) {
+        switch (tirada) {
+            case 1:
+                return R.drawable.dice1double;
+            case 2:
+                return R.drawable.dice2double;
+            case 3:
+                return R.drawable.dice3double;
+            case 4:
+                return R.drawable.dice4double;
+            case 5:
+                return R.drawable.dice5double;
+            case 6:
+                return R.drawable.dice6double;
+            default:
+                return R.drawable.dice1normal;
+        }
+    }
+
+    private int getDiceDrawableTriple(int tirada) {
+        switch (tirada) {
+            case 1:
+                return R.drawable.dice1triple;
+            case 2:
+                return R.drawable.dice2triple;
+            case 3:
+                return R.drawable.dice3triple;
+            case 4:
+                return R.drawable.dice4triple;
+            case 5:
+                return R.drawable.dice5triple;
+            case 6:
+                return R.drawable.dice6triple;
+            default:
+                return R.drawable.dice1normal;
+        }
+    }
+
+    private int getDiceDrawableRed(int tirada) {
+        switch (tirada) {
+            case 1:
+                return R.drawable.dice1red;
+            case 2:
+                return R.drawable.dice2red;
+            case 3:
+                return R.drawable.dice3red;
+            case 4:
+                return R.drawable.dice4red;
+            case 5:
+                return R.drawable.dice5red;
+            case 6:
+                return R.drawable.dice6red;
+            default:
+                return R.drawable.dice1red;
         }
     }
 }
