@@ -21,22 +21,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.music);
+        mediaPlayer = MediaPlayer.create(this, R.raw.menu_theme);
         mediaPlayer.setLooping(true);
-        //mediaPlayer.start();
+        mediaPlayer.start();
 
         botonJugar = findViewById(R.id.botonJugar);
         botonComo = findViewById(R.id.botonComo);
         botonSalir = findViewById(R.id.botonSalir);
 
-        botonJugar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-                startActivity(intent);
-            }
+        botonJugar.setOnClickListener(v -> {
+            mediaPlayer.stop();
+            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+            startActivity(intent);
         });
 
+        botonSalir.setOnClickListener(v -> {
+           finish();
+        });
 
+        botonComo.setOnClickListener(v->{
+            Intent intent = new Intent(MainActivity.this, ComoJugar.class);
+            startActivity(intent);
+        });
     }
 }

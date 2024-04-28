@@ -10,7 +10,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.Random;
 
 public class MainActivity2 extends AppCompatActivity {
@@ -71,16 +70,21 @@ public class MainActivity2 extends AppCompatActivity {
     int[] puntosColumnaIA;
 
     //Audio
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer musica;
+    private MediaPlayer sonidoDice;
     private int total;
     private int totalIA;
+    private int tiradaIA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.dicesound);
+        sonidoDice = MediaPlayer.create(this, R.raw.dicesound);
+        musica = MediaPlayer.create(this, R.raw.music);
+        musica.setLooping(true);
+        musica.start();
 
         ganador = findViewById(R.id.ganador);
 
@@ -154,7 +158,7 @@ public class MainActivity2 extends AppCompatActivity {
 
             if (!rolleado) {
                 rollDice();
-                mediaPlayer.start();
+                sonidoDice.start();
             }
         });
 
@@ -365,43 +369,59 @@ public class MainActivity2 extends AppCompatActivity {
     private void iaPlay() {
         if (rolleado) {
             Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Random aleatorio = new Random();
-                    int dadoIa = aleatorio.nextInt(6) + 1;
-                    int[] posicion = buscarNumeroEnColumnas(dadoIa);
+            handler.postDelayed(() -> {
 
-                    tablero[posicion[0]][posicion[1]] = dadoIa;
-                    rollerimageIA.setImageResource(getDiceDrawable(dadoIa));
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getImageViewPosition(posicion).setImageResource(getDiceDrawable(dadoIa));
-                            rollerimageIA.setImageResource(R.drawable.emptydice);
-                            rolleado = false;
-                            updateCounterPlayer(posicion[0], posicion[1]);
-                        }
-                    }, 1500);
-                }
+                Random aleatorio = new Random();
+                tiradaIA = aleatorio.nextInt(6) + 1;
+                int[] posicion = buscarNumeroEnColumnas(tiradaIA);
+
+                tablero[posicion[0]][posicion[1]] = tiradaIA;
+                rollerimageIA.setImageResource(getDiceDrawable(tiradaIA));
+
+                handler.postDelayed(() -> {
+
+                    getImageViewPosition(posicion).setImageResource(getDiceDrawable(tiradaIA));
+                    rollerimageIA.setImageResource(R.drawable.emptydice);
+                    rolleado = false;
+                    updateCounterPlayer(posicion[0], posicion[1]);
+
+                }, 1500);
             }, 1000);
         }
     }
 
 
     public void buscarDadoEnemigo(int posX, int posY) {
+        Handler handler2 = new Handler();
         if (posX <= 2) {
             for (int i = 3; i < tablero.length; i++) {
                 if (tablero[posX][posY] == tablero[i][posY]) {
                     tablero[i][posY] = 0;
-                    getDiceDrawableFromPosition(i, posY).setImageResource(R.drawable.emptydice);
+                    getDiceDrawableFromPosition(i, posY).setImageResource(getDiceDrawableRed(tiradaIA));
+                    int finalI = i;
+                    handler2.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getDiceDrawableFromPosition(finalI, posY).setImageResource(R.drawable.emptydice);
+                        }
+                    }, 600);
+                    getDiceDrawableFromPosition(i, posY).setImageResource(getDiceDrawableRed(tiradaIA));
+
                 }
             }
         } else {
             for (int i = 0; i < 3; i++) {
                 if (tablero[posX][posY] == tablero[i][posY]) {
                     tablero[i][posY] = 0;
-                    getDiceDrawableFromPosition(i, posY).setImageResource(R.drawable.emptydice);
+                    getDiceDrawableFromPosition(i, posY).setImageResource(getDiceDrawableRed(tirada));
+                    int finalI = i;
+                    handler2.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getDiceDrawableFromPosition(finalI, posY).setImageResource(R.drawable.emptydice);
+                        }
+                    }, 600);
+                    getDiceDrawableFromPosition(i, posY).setImageResource(getDiceDrawableRed(tirada));
                 }
             }
         }
@@ -452,7 +472,31 @@ public class MainActivity2 extends AppCompatActivity {
             }
         }
 
+        return iaElimineDado(tiradaIA);
+    }
+
+    public int[] iaElimineDado(int dadoIA) {
+        for (int i = 3; i < 6; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (tablero[i][j] == dadoIA) {
+                    int[] posicion = huecoEnColumna(j);
+                    if (posicion != null)
+                        return posicion;
+                }
+            }
+        }
         return obtenerPosicionAleatoria();
+
+    }
+
+    private int[] huecoEnColumna(int columna) {
+        if (tablero[0][columna] == 0)
+            return new int[]{0, columna};
+        if (tablero[1][columna] == 0)
+            return new int[]{1, columna};
+        if (tablero[2][columna] == 0)
+            return new int[]{2, columna};
+        return null;
     }
 
     private ImageView getImageViewPosition(int[] posicionElegida) {
@@ -654,5 +698,9 @@ public class MainActivity2 extends AppCompatActivity {
             default:
                 return R.drawable.dice1red;
         }
+    }
+
+    private void animacionEliminar() {
+
     }
 }
