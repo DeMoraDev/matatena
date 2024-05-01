@@ -66,6 +66,8 @@ public class MainActivity2 extends AppCompatActivity {
     int tirada;
     boolean rolleado = false;
 
+    boolean turnoJugador = false;
+
     int[] puntosColumna;
     int[] puntosColumnaIA;
 
@@ -84,7 +86,7 @@ public class MainActivity2 extends AppCompatActivity {
         sonidoDice = MediaPlayer.create(this, R.raw.dicesound);
         musica = MediaPlayer.create(this, R.raw.music);
         musica.setLooping(true);
-        musica.start();
+        //musica.start();
 
         ganador = findViewById(R.id.ganador);
 
@@ -166,10 +168,11 @@ public class MainActivity2 extends AppCompatActivity {
         hueco_3_0.setOnClickListener(v -> {
             if (tablero[3][0] == 0) {
                 if (rolleado) {
-                    tablero[3][0] = tirada;
-                    dice_3_0.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer(3, 0);
-
+                    if (!turnoJugador) {
+                        tablero[3][0] = tirada;
+                        dice_3_0.setImageResource(getDiceDrawable(tirada));
+                        updateCounterPlayer(3, 0);
+                    }
                 }
             }
         });
@@ -177,9 +180,11 @@ public class MainActivity2 extends AppCompatActivity {
         hueco_3_1.setOnClickListener(v -> {
             if (tablero[3][1] == 0) {
                 if (rolleado) {
-                    tablero[3][1] = tirada;
-                    dice_3_1.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer(3, 1);
+                    if (!turnoJugador) {
+                        tablero[3][1] = tirada;
+                        dice_3_1.setImageResource(getDiceDrawable(tirada));
+                        updateCounterPlayer(3, 1);
+                    }
                 }
             }
         });
@@ -187,9 +192,11 @@ public class MainActivity2 extends AppCompatActivity {
         hueco_3_2.setOnClickListener(v -> {
             if (tablero[3][2] == 0) {
                 if (rolleado) {
-                    tablero[3][2] = tirada;
-                    dice_3_2.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer(3, 2);
+                    if (!turnoJugador) {
+                        tablero[3][2] = tirada;
+                        dice_3_2.setImageResource(getDiceDrawable(tirada));
+                        updateCounterPlayer(3, 2);
+                    }
                 }
             }
         });
@@ -197,9 +204,11 @@ public class MainActivity2 extends AppCompatActivity {
         hueco_4_0.setOnClickListener(v -> {
             if (tablero[4][0] == 0) {
                 if (rolleado) {
-                    tablero[4][0] = tirada;
-                    dice_4_0.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer(4, 0);
+                    if (!turnoJugador) {
+                        tablero[4][0] = tirada;
+                        dice_4_0.setImageResource(getDiceDrawable(tirada));
+                        updateCounterPlayer(4, 0);
+                    }
                 }
             }
         });
@@ -207,9 +216,11 @@ public class MainActivity2 extends AppCompatActivity {
         hueco_4_1.setOnClickListener(v -> {
             if (tablero[4][1] == 0) {
                 if (rolleado) {
-                    tablero[4][1] = tirada;
-                    dice_4_1.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer(4, 1);
+                    if (!turnoJugador) {
+                        tablero[4][1] = tirada;
+                        dice_4_1.setImageResource(getDiceDrawable(tirada));
+                        updateCounterPlayer(4, 1);
+                    }
                 }
             }
         });
@@ -217,9 +228,11 @@ public class MainActivity2 extends AppCompatActivity {
         hueco_4_2.setOnClickListener(v -> {
             if (tablero[4][2] == 0) {
                 if (rolleado) {
-                    tablero[4][2] = tirada;
-                    dice_4_2.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer(4, 2);
+                    if (!turnoJugador) {
+                        tablero[4][2] = tirada;
+                        dice_4_2.setImageResource(getDiceDrawable(tirada));
+                        updateCounterPlayer(4, 2);
+                    }
                 }
             }
         });
@@ -227,9 +240,11 @@ public class MainActivity2 extends AppCompatActivity {
         hueco_5_0.setOnClickListener(v -> {
             if (tablero[5][0] == 0) {
                 if (rolleado) {
-                    tablero[5][0] = tirada;
-                    dice_5_0.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer(5, 0);
+                    if (!turnoJugador) {
+                        tablero[5][0] = tirada;
+                        dice_5_0.setImageResource(getDiceDrawable(tirada));
+                        updateCounterPlayer(5, 0);
+                    }
                 }
             }
         });
@@ -237,9 +252,11 @@ public class MainActivity2 extends AppCompatActivity {
         hueco_5_1.setOnClickListener(v -> {
             if (tablero[5][1] == 0) {
                 if (rolleado) {
-                    tablero[5][1] = tirada;
-                    dice_5_1.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer(5, 1);
+                    if (!turnoJugador) {
+                        tablero[5][1] = tirada;
+                        dice_5_1.setImageResource(getDiceDrawable(tirada));
+                        updateCounterPlayer(5, 1);
+                    }
                 }
             }
         });
@@ -247,9 +264,11 @@ public class MainActivity2 extends AppCompatActivity {
         hueco_5_2.setOnClickListener(v -> {
             if (tablero[5][2] == 0) {
                 if (rolleado) {
-                    tablero[5][2] = tirada;
-                    dice_5_2.setImageResource(getDiceDrawable(tirada));
-                    updateCounterPlayer(5, 2);
+                    if (!turnoJugador) {
+                        tablero[5][2] = tirada;
+                        dice_5_2.setImageResource(getDiceDrawable(tirada));
+                        updateCounterPlayer(5, 2);
+                    }
                 }
             }
         });
@@ -341,7 +360,10 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     private void updateCounterPlayer(int posX, int posY) {
+
         resetRoller();
+
+        turnoJugador = true;
 
         buscarDadoEnemigo(posX, posY);
 
@@ -384,6 +406,7 @@ public class MainActivity2 extends AppCompatActivity {
                     rollerimageIA.setImageResource(R.drawable.emptydice);
                     rolleado = false;
                     updateCounterPlayer(posicion[0], posicion[1]);
+                    turnoJugador = false;
 
                 }, 1500);
             }, 1000);

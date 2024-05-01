@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         mediaPlayer = MediaPlayer.create(this, R.raw.menu_theme);
         mediaPlayer.setLooping(true);
-        mediaPlayer.start();
+        //mediaPlayer.start();
 
         botonJugar = findViewById(R.id.botonJugar);
         botonComo = findViewById(R.id.botonComo);
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         botonJugar.setOnClickListener(v -> {
             mediaPlayer.stop();
             Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+           intent.putExtra("tipo_new","vaquito");
             startActivity(intent);
         });
 

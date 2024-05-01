@@ -24,7 +24,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bossvaquitofinal" />
+        app:srcCompat="@drawable/bosssallyfinal" />
 
     <TextView
         android:id="@+id/puntos_IA"
