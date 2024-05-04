@@ -77,12 +77,13 @@ public class MainActivity2 extends AppCompatActivity {
     private int total;
     private int totalIA;
     private int tiradaIA;
+    int dificultad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
+        dificultad = getIntent().getExtras().getInt("dificultad_ia");
         sonidoDice = MediaPlayer.create(this, R.raw.dicesound);
         musica = MediaPlayer.create(this, R.raw.music);
         musica.setLooping(true);
@@ -369,9 +370,12 @@ public class MainActivity2 extends AppCompatActivity {
 
         calculoPuntos();
 
+        checkWin();
+
+    }
+
+    private void checkWin() {
         if (isGameFinished()) {
-
-
             if (total < totalIA) {
                 ganador.setText("Gana Vaquito");
 
@@ -382,10 +386,10 @@ public class MainActivity2 extends AppCompatActivity {
                 ganador.setText("Empate");
             }
         } else {
+            //iaPlay();
             iaPlay();
 
         }
-
     }
 
     private void iaPlay() {
@@ -395,7 +399,14 @@ public class MainActivity2 extends AppCompatActivity {
 
                 Random aleatorio = new Random();
                 tiradaIA = aleatorio.nextInt(6) + 1;
-                int[] posicion = buscarNumeroEnColumnas(tiradaIA);
+                int[] posicion;
+                if (dificultad == 0) {
+                    posicion = obtenerPosicionAleatoria();
+                } else if (dificultad == 1) {
+                    posicion = buscarNumeroEnColumnas(tiradaIA);
+                } else {
+                    posicion = iaElimineDadoDifilDos(tiradaIA);
+                }
 
                 tablero[posicion[0]][posicion[1]] = tiradaIA;
                 rollerimageIA.setImageResource(getDiceDrawable(tiradaIA));
@@ -412,7 +423,6 @@ public class MainActivity2 extends AppCompatActivity {
             }, 1000);
         }
     }
-
 
     public void buscarDadoEnemigo(int posX, int posY) {
         Handler handler2 = new Handler();
@@ -497,6 +507,125 @@ public class MainActivity2 extends AppCompatActivity {
 
         return iaElimineDado(tiradaIA);
     }
+
+    private int[] iaElimineDadoDifilDos(int dadoIA) {
+        boolean[] columnaLibre = new boolean[3];
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (tablero[i][j] == 0) {
+                    columnaLibre[j] = true;
+                }
+            }
+        }
+
+        int[] columnaEnemigo = new int[3];
+        for (int i = 3; i < 6; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (tablero[i][j] == dadoIA && columnaLibre[j]) {
+                    columnaEnemigo[j] += 1;
+                }
+            }
+        }
+
+        if (columnaEnemigo[0] > 1 || columnaEnemigo[1] > 1 || columnaEnemigo[2] > 1) {
+            int columna;
+
+            if (columnaEnemigo[0] > columnaEnemigo[1] && columnaEnemigo[0] > columnaEnemigo[2]) {
+                columna = 0;
+            } else if (columnaEnemigo[1] > columnaEnemigo[2]) {
+                columna = 1;
+            } else {
+                columna = 2;
+            }
+
+            if (tablero[0][columna] == 0) {
+                return new int[]{0, columna};
+            } else if (tablero[1][columna] == 0) {
+                return new int[]{1, columna};
+            } else {
+                return new int[]{2, columna};
+            }
+        } else {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (tablero[i][j] == tiradaIA) {
+                        if (i == 0) {
+                            if (tablero[1][j] == 0) {
+                                return new int[]{1, j};
+                            }
+                            if (tablero[2][j] == 0) {
+                                return new int[]{2, j};
+                            }
+                        }
+                        if (i == 1) {
+                            if (tablero[0][j] == 0) {
+                                return new int[]{0, j};
+                            }
+                            if (tablero[2][j] == 0) {
+                                return new int[]{2, j};
+                            }
+                        }
+                        if (i == 2) {
+                            if (tablero[0][j] == 0) {
+                                return new int[]{0, j};
+                            }
+                            if (tablero[1][j] == 0) {
+                                return new int[]{1, j};
+                            }
+                        }
+                    }
+                }
+            }
+
+            return iaElimineDadoDifilUno(dadoIA);
+        }
+    }
+
+    private int[] iaElimineDadoDifilUno(int dadoIA) {
+        boolean[] columnaLibre = new boolean[3];
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (tablero[i][j] == 0) {
+                    columnaLibre[j] = true;
+                }
+            }
+        }
+
+        int[] columnaEnemigo = new int[3];
+        for (int i = 3; i < 6; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (tablero[i][j] == dadoIA && columnaLibre[j]) {
+                    columnaEnemigo[j] += 1;
+                }
+            }
+        }
+
+        if (columnaEnemigo[0] > 0 || columnaEnemigo[1] > 0 || columnaEnemigo[2] > 0) {
+            int columna;
+
+            if (columnaEnemigo[0] > columnaEnemigo[1] && columnaEnemigo[0] > columnaEnemigo[2]) {
+                columna = 0;
+            } else if (columnaEnemigo[1] > columnaEnemigo[2]) {
+                columna = 1;
+            } else {
+                columna = 2;
+            }
+
+            if (tablero[0][columna] == 0) {
+                return new int[]{0, columna};
+            } else if (tablero[1][columna] == 0) {
+                return new int[]{1, columna};
+            } else {
+                return new int[]{2, columna};
+            }
+
+        } else {
+            return obtenerPosicionAleatoria();
+        }
+    }
+
 
     public int[] iaElimineDado(int dadoIA) {
         for (int i = 3; i < 6; i++) {

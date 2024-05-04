@@ -32,15 +32,18 @@ public class MainActivity extends AppCompatActivity {
         botonJugar.setOnClickListener(v -> {
             mediaPlayer.stop();
             Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-           intent.putExtra("tipo_new","vaquito");
+           // intent.putExtra("dificultad_ia", 0);
+          //  intent.putExtra("dificultad_ia", 1);
+            intent.putExtra("dificultad_ia", 2);
+
             startActivity(intent);
         });
 
         botonSalir.setOnClickListener(v -> {
-           finish();
+            finish();
         });
 
-        botonComo.setOnClickListener(v->{
+        botonComo.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ComoJugar.class);
             startActivity(intent);
         });
