@@ -31,10 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         botonJugar.setOnClickListener(v -> {
             mediaPlayer.stop();
-            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-           // intent.putExtra("dificultad_ia", 0);
-          //  intent.putExtra("dificultad_ia", 1);
-            intent.putExtra("dificultad_ia", 2);
+            Intent intent = new Intent(MainActivity.this, GamblingRoom.class);
 
             startActivity(intent);
         });

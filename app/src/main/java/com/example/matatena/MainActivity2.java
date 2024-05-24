@@ -16,6 +16,8 @@ public class MainActivity2 extends AppCompatActivity {
 
 
     private TextView ganador;
+
+    private ImageView bossPic;
     private ImageButton roller1;
     private ImageView rollerFinal;
     private ImageButton hueco_3_0;
@@ -78,12 +80,29 @@ public class MainActivity2 extends AppCompatActivity {
     private int totalIA;
     private int tiradaIA;
     int dificultad;
+    int coins;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        //Monedas
+        coins = getIntent().getExtras().getInt("coins");
+
+        //Bosses
+        bossPic = findViewById(R.id.bossIA);
+
         dificultad = getIntent().getExtras().getInt("dificultad_ia");
+        if(dificultad==0){
+            bossPic.setImageResource(R.drawable.bossvaquitofinal);
+        }else if(dificultad==1){
+            bossPic.setImageResource(R.drawable.bosssallyfinal);
+        }else{
+            bossPic.setImageResource(R.drawable.bosspifinal);
+        }
+
+        //Sonido
         sonidoDice = MediaPlayer.create(this, R.raw.dicesound);
         musica = MediaPlayer.create(this, R.raw.music);
         musica.setLooping(true);
@@ -91,8 +110,10 @@ public class MainActivity2 extends AppCompatActivity {
 
         ganador = findViewById(R.id.ganador);
 
+
         roller1 = findViewById(R.id.roller_Jugador);
         rollerFinal = findViewById(R.id.rollerimage);
+
 
 
         puntosJugador = findViewById(R.id.puntos_Jugador);
@@ -386,7 +407,6 @@ public class MainActivity2 extends AppCompatActivity {
                 ganador.setText("Empate");
             }
         } else {
-            //iaPlay();
             iaPlay();
 
         }
@@ -852,7 +872,4 @@ public class MainActivity2 extends AppCompatActivity {
         }
     }
 
-    private void animacionEliminar() {
-
-    }
 }
