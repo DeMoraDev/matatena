@@ -27,15 +27,26 @@ public class GamblingRoom extends AppCompatActivity {
     private ConstraintLayout mensajeapuesta;
 
     private TextView coins;
-    private int coinsPlayer = 50;
+    public int myCoins;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gambling_room);
 
+        //Coins
+
+        // Recuperar el entero
+        myCoins = SaveCoins.getSavedInteger(this,SaveCoins.COINS);
+
+
+        if(myCoins<5){
+            myCoins=5;
+        }
+
         coins = findViewById(R.id.coin_value);
-        coins.setText(String.valueOf(coinsPlayer));
+        coins.setText(String.valueOf(myCoins));
+
 
         //Botones Bosses
 
@@ -56,7 +67,7 @@ public class GamblingRoom extends AppCompatActivity {
                 mensajeapuesta.setVisibility(View.VISIBLE);
                 botonApuesta.setVisibility(View.VISIBLE);
                 nombreBoss.setText("Vaquito");
-                apuestaBoss.setText("5");
+                apuestaBoss.setText("10");
                 dificultad.setText("Fácil");
             } else {
                 mensajeapuesta.setVisibility(View.GONE);
@@ -96,37 +107,37 @@ public class GamblingRoom extends AppCompatActivity {
 
         botonApuesta.setOnClickListener(v -> {
 
-            if (nombreBoss.getText().equals("Vaquito") && (coinsPlayer >= 5)) {
+            if (nombreBoss.getText().equals("Vaquito") && (myCoins >= 10)) {
 
-                bet("vaquito");
+
                 Intent intent = new Intent(GamblingRoom.this, MainActivity2.class);
                 intent.putExtra("dificultad_ia", 0);
-                intent.putExtra("coins", coinsPlayer);
+                intent.putExtra("coins", myCoins);
 
                 startActivity(intent);
 
-            } else if (nombreBoss.getText().equals("Sally") && (coinsPlayer >= 20)) {
+            } else if (nombreBoss.getText().equals("Sally") && (myCoins >= 20)) {
 
-                bet("sally");
+
                 Intent intent = new Intent(GamblingRoom.this, MainActivity2.class);
                 intent.putExtra("dificultad_ia", 1);
-                intent.putExtra("coins", coinsPlayer);
+                intent.putExtra("coins", myCoins);
 
                 startActivity(intent);
 
-            } else if (nombreBoss.getText().equals("Pi") && (coinsPlayer >= 30)) {
+            } else if (nombreBoss.getText().equals("Pi") && (myCoins >= 30)) {
 
-                bet("pi");
+
                 Intent intent = new Intent(GamblingRoom.this, MainActivity2.class);
                 intent.putExtra("dificultad_ia", 2);
-                intent.putExtra("coins", coinsPlayer);
+                intent.putExtra("coins", myCoins);
 
                 startActivity(intent);
             }
         });
     }
 
-    private void updateCoins(int apuesta) {
+   /* private void updateCoins(int apuesta) {
         coinsPlayer += apuesta;
         coins.setText(String.valueOf(coinsPlayer));
     }
@@ -139,5 +150,5 @@ public class GamblingRoom extends AppCompatActivity {
         } else if (Objects.equals(boss, "pi")) {
             updateCoins(-30);
         }
-    }
+    }*/
 }

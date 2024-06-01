@@ -1,10 +1,13 @@
 package com.example.matatena;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,6 +19,10 @@ public class MainActivity2 extends AppCompatActivity {
 
 
     private TextView ganador;
+
+    private ConstraintLayout mensajeGanador;
+    private TextView nombreGanador;
+    private Button botonReseteo;
 
     private ImageView bossPic;
     private ImageButton roller1;
@@ -62,8 +69,6 @@ public class MainActivity2 extends AppCompatActivity {
     private ImageView dice_5_1;
     private ImageView dice_5_2;
 
-    private Button botonReseteo;
-
     int[][] tablero;
     int tirada;
     boolean rolleado = false;
@@ -88,17 +93,17 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         //Monedas
-        coins = getIntent().getExtras().getInt("coins");
+        coins = SaveCoins.getSavedInteger(this, SaveCoins.COINS);
 
         //Bosses
         bossPic = findViewById(R.id.bossIA);
 
         dificultad = getIntent().getExtras().getInt("dificultad_ia");
-        if(dificultad==0){
+        if (dificultad == 0) {
             bossPic.setImageResource(R.drawable.bossvaquitofinal);
-        }else if(dificultad==1){
+        } else if (dificultad == 1) {
             bossPic.setImageResource(R.drawable.bosssallyfinal);
-        }else{
+        } else {
             bossPic.setImageResource(R.drawable.bosspifinal);
         }
 
@@ -110,10 +115,13 @@ public class MainActivity2 extends AppCompatActivity {
 
         ganador = findViewById(R.id.ganador);
 
+        mensajeGanador = findViewById(R.id.layout_mensaje_reset);
+        nombreGanador = findViewById(R.id.mensaje_ganador);
+        botonReseteo = findViewById(R.id.botonReseteo);
+
 
         roller1 = findViewById(R.id.roller_Jugador);
         rollerFinal = findViewById(R.id.rollerimage);
-
 
 
         puntosJugador = findViewById(R.id.puntos_Jugador);
@@ -156,8 +164,6 @@ public class MainActivity2 extends AppCompatActivity {
         hueco_3_1 = findViewById(R.id.hueco_3_1);
         hueco_3_0 = findViewById(R.id.hueco_3_0);
         hueco_3_2 = findViewById(R.id.hueco_3_2);
-
-        botonReseteo = findViewById(R.id.botonReseteo);
 
         puntosJugador = findViewById(R.id.puntos_Jugador);
         puntos_Jugador_columna_0 = findViewById(R.id.puntos_Jugador_Columna_0);
@@ -296,7 +302,9 @@ public class MainActivity2 extends AppCompatActivity {
         });
 
         botonReseteo.setOnClickListener(v -> {
-            resetGame();
+            Intent intent = new Intent(MainActivity2.this, GamblingRoom.class);
+
+            startActivity(intent);
 
         });
     }
@@ -306,6 +314,8 @@ public class MainActivity2 extends AppCompatActivity {
         tirada = aleatorio.nextInt(6) + 1;
         rolleado = true;
         rollerFinal.setImageResource(getDiceDrawable(tirada));
+
+
     }
 
     private void resetRoller() {
@@ -397,19 +407,43 @@ public class MainActivity2 extends AppCompatActivity {
 
     private void checkWin() {
         if (isGameFinished()) {
-            if (total < totalIA) {
-                ganador.setText("Gana Vaquito");
-
-            } else if (total > totalIA) {
-                ganador.setText("Gana Jugador");
-
-            } else {
-                ganador.setText("Empate");
-            }
+            mensajeReset();
         } else {
             iaPlay();
 
         }
+    }
+
+    private void mensajeReset() {
+        mensajeGanador.setVisibility(View.VISIBLE);
+
+        if (total < totalIA) {
+            if (dificultad == 0) {
+                nombreGanador.setText("Gana Vaquito");
+                coins -= 10;
+            } else if (dificultad == 1) {
+                nombreGanador.setText("Gana Sally");
+                coins -= 20;
+            } else {
+                nombreGanador.setText("Gana Pi");
+                coins -= 30;
+            }
+
+        } else if (total > totalIA) {
+            nombreGanador.setText("Gana Jugador");
+            if (dificultad == 0) {
+                coins += 10;
+            } else if (dificultad == 1) {
+                coins += 20;
+            } else {
+                coins += 30;
+            }
+
+        } else {
+            nombreGanador.setText("Empate");
+        }
+        SaveCoins.saveInteger(this, SaveCoins.COINS, coins);
+
     }
 
     private void iaPlay() {

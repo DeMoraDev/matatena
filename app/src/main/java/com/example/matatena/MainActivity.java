@@ -21,9 +21,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //SaveCoins.clearAllPreferences(this);
+
         mediaPlayer = MediaPlayer.create(this, R.raw.menu_theme);
         mediaPlayer.setLooping(true);
-        //mediaPlayer.start();
+        mediaPlayer.start();
 
         botonJugar = findViewById(R.id.botonJugar);
         botonComo = findViewById(R.id.botonComo);
