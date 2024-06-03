@@ -302,12 +302,10 @@ public class MainActivity2 extends AppCompatActivity {
         });
 
         botonReseteo.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity2.this, GamblingRoom.class);
-
-            startActivity(intent);
-
+            finish();
         });
     }
+
 
     public void rollDice() {
         Random aleatorio = new Random();
@@ -463,6 +461,7 @@ public class MainActivity2 extends AppCompatActivity {
                 }
 
                 tablero[posicion[0]][posicion[1]] = tiradaIA;
+                sonidoDice.start();
                 rollerimageIA.setImageResource(getDiceDrawable(tiradaIA));
 
                 handler.postDelayed(() -> {

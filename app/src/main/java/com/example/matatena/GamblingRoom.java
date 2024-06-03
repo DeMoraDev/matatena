@@ -37,15 +37,7 @@ public class GamblingRoom extends AppCompatActivity {
         //Coins
 
         // Recuperar el entero
-        myCoins = SaveCoins.getSavedInteger(this,SaveCoins.COINS);
 
-
-        if(myCoins<5){
-            myCoins=5;
-        }
-
-        coins = findViewById(R.id.coin_value);
-        coins.setText(String.valueOf(myCoins));
 
 
         //Botones Bosses
@@ -137,18 +129,18 @@ public class GamblingRoom extends AppCompatActivity {
         });
     }
 
-   /* private void updateCoins(int apuesta) {
-        coinsPlayer += apuesta;
-        coins.setText(String.valueOf(coinsPlayer));
-    }
+    @Override
+    public void onResume() {
+        super.onResume();
 
-    private void bet(String boss) {
-        if (Objects.equals(boss, "vaquito")) {
-            updateCoins(-5);
-        } else if (Objects.equals(boss, "sally")) {
-            updateCoins(-20);
-        } else if (Objects.equals(boss, "pi")) {
-            updateCoins(-30);
+        myCoins = SaveCoins.getSavedInteger(this,SaveCoins.COINS);
+
+
+        if(myCoins<5){
+            myCoins=5;
         }
-    }*/
+
+        coins = findViewById(R.id.coin_value);
+        coins.setText(String.valueOf(myCoins));
+    }
 }
