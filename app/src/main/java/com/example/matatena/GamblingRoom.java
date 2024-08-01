@@ -5,12 +5,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
-import java.util.Objects;
 
 public class GamblingRoom extends AppCompatActivity {
 
@@ -102,7 +99,7 @@ public class GamblingRoom extends AppCompatActivity {
             if (nombreBoss.getText().equals("Vaquito") && (myCoins >= 10)) {
 
 
-                Intent intent = new Intent(GamblingRoom.this, MainActivity2.class);
+                Intent intent = new Intent(GamblingRoom.this, GameActivity.class);
                 intent.putExtra("dificultad_ia", 0);
                 intent.putExtra("coins", myCoins);
 
@@ -111,7 +108,7 @@ public class GamblingRoom extends AppCompatActivity {
             } else if (nombreBoss.getText().equals("Sally") && (myCoins >= 20)) {
 
 
-                Intent intent = new Intent(GamblingRoom.this, MainActivity2.class);
+                Intent intent = new Intent(GamblingRoom.this, GameActivity.class);
                 intent.putExtra("dificultad_ia", 1);
                 intent.putExtra("coins", myCoins);
 
@@ -120,7 +117,7 @@ public class GamblingRoom extends AppCompatActivity {
             } else if (nombreBoss.getText().equals("Pi") && (myCoins >= 30)) {
 
 
-                Intent intent = new Intent(GamblingRoom.this, MainActivity2.class);
+                Intent intent = new Intent(GamblingRoom.this, GameActivity.class);
                 intent.putExtra("dificultad_ia", 2);
                 intent.putExtra("coins", myCoins);
 
@@ -136,8 +133,8 @@ public class GamblingRoom extends AppCompatActivity {
         myCoins = SaveCoins.getSavedInteger(this,SaveCoins.COINS);
 
 
-        if(myCoins<5){
-            myCoins=5;
+        if(myCoins<10){
+            myCoins=200;
         }
 
         coins = findViewById(R.id.coin_value);

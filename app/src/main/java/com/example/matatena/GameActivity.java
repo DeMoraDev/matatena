@@ -3,7 +3,6 @@ package com.example.matatena;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class MainActivity2 extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
 
 
     private TextView ganador;
@@ -81,6 +80,8 @@ public class MainActivity2 extends AppCompatActivity {
     //Audio
     private MediaPlayer musica;
     private MediaPlayer sonidoDice;
+
+    private MediaPlayer miauVaquito;
     private int total;
     private int totalIA;
     private int tiradaIA;
@@ -90,7 +91,7 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_game);
 
         //Monedas
         coins = SaveCoins.getSavedInteger(this, SaveCoins.COINS);
@@ -109,9 +110,10 @@ public class MainActivity2 extends AppCompatActivity {
 
         //Sonido
         sonidoDice = MediaPlayer.create(this, R.raw.dicesound);
+        miauVaquito = MediaPlayer.create(this, R.raw.vaquitomiau);
         musica = MediaPlayer.create(this, R.raw.music);
         musica.setLooping(true);
-        //musica.start();
+        musica.start();
 
         ganador = findViewById(R.id.ganador);
 
@@ -302,6 +304,7 @@ public class MainActivity2 extends AppCompatActivity {
         });
 
         botonReseteo.setOnClickListener(v -> {
+            musica.stop();
             finish();
         });
     }
@@ -492,6 +495,7 @@ public class MainActivity2 extends AppCompatActivity {
                         }
                     }, 600);
                     getDiceDrawableFromPosition(i, posY).setImageResource(getDiceDrawableRed(tiradaIA));
+                    miauVaquito.start();
 
                 }
             }
@@ -687,6 +691,7 @@ public class MainActivity2 extends AppCompatActivity {
                     int[] posicion = huecoEnColumna(j);
                     if (posicion != null)
                         return posicion;
+
                 }
             }
         }

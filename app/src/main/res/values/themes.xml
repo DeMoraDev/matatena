@@ -6,4 +6,7 @@
     </style>
 
     <style name="Theme.Matatena" parent="Base.Theme.Matatena" />
+    <style name="SplashTheme" parent="Base.Theme.Matatena">
+        <item name="android:windowBackground">@drawable/splashscreen</item>
+    </style>
 </resources>
