@@ -1,93 +1,105 @@
-# Matatena
+<h1 align="center">Matatena</h1>
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/583766e4-d6f3-466f-a9bd-ae06e3e3f9e8" width="200" alt="DoubleIa">
+</div>
+
+Matatena is a dice game developed in Android Studio using Java with XML. The game combines elements of strategy and luck.
+
+## Game Overview
+
+The game consists of two 3x3 boards, one for each player. Players take turns playing. At the beginning of a turn, the player rolls a 6-sided die and places it in a position on their board. Each player has a score, which is the sum of all the values of the dice on their board. To play against an opponent, players must wager gold coins. If you lose, you lose the gold; if you win, you earn gold. Each opponent costs more gold to play against.
+
+## Technologies Used
+
+  <img src="https://img.shields.io/badge/Java-007396.svg?style=for-the-badge&logo=java&logoColor=white" alt="Java Badge">
+  <img src="https://img.shields.io/badge/XML-FF6600.svg?style=for-the-badge&logo=xml&logoColor=white" alt="XML Badge">
 
 
+## Game Mechanics
 
-## Getting started
+### Multiplication of Points
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+If a player places multiple dice of the same value in the same column, the score of those dice is multiplied: doubled if there are 2, or tripled if there are 3.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/cf843b22-b51b-4182-8820-e1d60bbd5238" width="200" alt="DoubleIa" style="margin: 10px;">
+  <img src="https://github.com/user-attachments/assets/d11f1ef4-5053-4852-b1fe-69d1cff1fe9c" width="200" alt="TriplePlayer" style="margin: 10px;">
+</div>
 
-## Add your files
+### Elimination of Enemy Dice
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+When a player places a die, all dice of the same value in the corresponding column on the opponent's board are destroyed.
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/vieja1/matatena.git
-git branch -M main
-git push -uf origin main
-```
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/d8f32bea-0137-4148-ae91-53a04e066a71" width="200" alt="TriplePlayer" style="margin: 10px;">
+</div>
 
-## Integrate with your tools
+## Design
 
-- [ ] [Set up project integrations](https://gitlab.com/vieja1/matatena/-/settings/integrations)
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <h3>Main Menu</h3>
+        <img src="https://github.com/user-attachments/assets/71d87de4-a48c-4ff4-a45c-160cdee931a8" width="200" alt="Main Menu">
+      </td>
+      <td align="center">
+        <h3>Opponent Selection</h3>
+        <img src="https://github.com/user-attachments/assets/a73fb041-a961-4fdd-ad29-63aa60c7eb5b" width="200" alt="Opponent Selection">
+      </td>
+      <td align="center">
+        <h3>Game Screen</h3>
+        <img src="https://github.com/user-attachments/assets/4d1891c7-2cc0-4ee0-9895-a5d67837fffa" width="200" alt="Game Screen">
+      </td>
+    </tr>
+  </table>
+</div>
 
-## Collaborate with your team
+## Enemies
+Each AI difficulty is represented by a different enemy. There are 3 at the moment (They're literally my sister's cats):
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <h3>Vaquito</h3>
+        <img src="https://github.com/user-attachments/assets/d7dbfa44-df73-4507-9bef-bfc32e070802" width="200" alt="Boss Vaquito">
+      </td>
+      <td align="center">
+        <h3>Sally</h3>
+        <img src="https://github.com/user-attachments/assets/b00a2b9e-f6e3-4039-9115-23cf1ee3f62b" width="200" alt="Boss Sally">
+      </td>
+      <td align="center">
+        <h3>Pi</h3>
+        <img src="https://github.com/user-attachments/assets/67cb0194-dfd0-4f0f-85d4-2c17308bd77e" width="200" alt="Boss Pi">
+      </td>
+    </tr>
+  </table>
+</div>
 
-## Test and Deploy
+## Implementation of Game Logic
 
-Use the built-in continuous integration in GitLab.
+### Score Counter
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+Each column has a score according to the dice it contains, and the total score is the sum of the scores of the 3 columns.
 
-***
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/3b6e1b70-069f-4813-893f-9c2be299c629" width="200" alt="Score Counter" style="margin: 10px;">
+</div>
 
-# Editing this README
+## AI Integration
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Depending on the difficulty level, the AI selects a position on the board:
 
-## Suggestions for a good README
+- **Difficulty 0:** Selects a random position.
+- **Difficulty 1:** Tries to eliminate enemy dice, multiply its own dice, or, failing that, selects a random position.
+- **Difficulty 2:** Decides to eliminate enemy dice or multiply its own dice, depending on which is more advantageous.
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+This is achieved through auxiliary methods that help each difficulty level achieve its objectives. These methods iterate through the array to perform a task and return it to the AI for decision-making based on the difficulty level.
 
-## Name
-Choose a self-explaining name for your project.
+### IA's Auxiliary Methods
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+- Returns a valid empty position on the board.
+- Searches for dice to multiply on its own board.
+- Searches for enemy dice to eliminate on the opponent's board.
